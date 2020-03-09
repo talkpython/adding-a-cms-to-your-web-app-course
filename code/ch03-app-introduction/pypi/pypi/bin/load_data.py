@@ -3,11 +3,9 @@ import os
 import sys
 import time
 from typing import List, Optional, Dict
-
-# noinspection PyPackageRequirements
 import progressbar
 from dateutil.parser import parse
-from sqlalchemy.orm import Session, subqueryload
+from sqlalchemy.orm import Session
 
 import pypi
 from pypi.data.db_session import DbSession
@@ -40,7 +38,7 @@ def main():
 def do_import_languages(file_data: List[dict]):
     imported = set()
     print("Importing languages ... ", flush=True)
-    with progressbar.ProgressBar(max_value=len(file_data)) as bar:
+    with progressbar.ProgressBar(len(file_data)) as bar:
         for idx, p in enumerate(file_data):
             info = p.get('info')
             classifiers = info.get('classifiers')
@@ -152,14 +150,17 @@ def do_import_packages(file_data: List[dict], user_lookup: Dict[str, User]):
 
 
 def do_load_files() -> List[dict]:
-    data_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../../../../data/pypi-top-100'))
+    data_path = os.path.abspath(
+        os.path.join(os.path.dirname(__file__),
+                     '../../../../../data/pypi-top-100')
+    )
     print(f"Loading files from {data_path}")
     files = get_file_names(data_path)
     print(f"Found {len(files):,} files, loading ...", flush=True)
     time.sleep(.1)
 
     file_data = []
-    with progressbar.ProgressBar(max_value=len(files)) as bar:
+    with progressbar.ProgressBar(maxval=len(files)) as bar:
         for idx, f in enumerate(files):
             file_data.append(load_file_data(f))
             bar.update(idx)

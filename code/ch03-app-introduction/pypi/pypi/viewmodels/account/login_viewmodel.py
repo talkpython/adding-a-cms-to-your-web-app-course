@@ -10,13 +10,14 @@ class LoginViewModel(ViewModelBase):
 
         self.email = self.request_dict.get('email')
         self.password = self.request_dict.get('password')
-        self.user = None
 
         if self.email:
             self.email = self.email.strip().lower()
 
         if self.email and self.password:
-            self.user = user_service.login_user(self.email, self.password)
+            self.__user = user_service.login_user(self.email, self.password)
+            if self.__user:
+                self.user_id = self.__user.id
 
     def validate(self):
         if not self.user:

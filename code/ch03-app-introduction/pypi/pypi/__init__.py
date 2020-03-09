@@ -3,8 +3,6 @@ import os
 from pyramid.config import Configurator
 
 from pypi.data.db_session import DbSession
-from pypi.infrastructure.markdown_template_storage import MarkdownSubTemplateDBStorage
-from pypi.infrastructure.markdown_template_cache import MarkdownSubTemplateDBCache
 
 
 def main(global_config, **settings):

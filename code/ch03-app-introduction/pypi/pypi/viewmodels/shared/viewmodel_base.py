@@ -24,7 +24,7 @@ class ViewModelBase:
 
     @property
     def user(self) -> Optional[User]:
-        if self.__user_set:
+        if self.__user or self.__user_set:
             return self.__user
 
         self.__user_set = True
