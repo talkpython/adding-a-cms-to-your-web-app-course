@@ -1,0 +1,12 @@
+<div metal:use-macro="load: ../shared/_layout.pt">
+    <div metal:fill-slot="content">
+
+        <div class="content padded">
+            <h1>${page.title}</h1>
+            <div>
+                ${structure:html}
+            </div>
+        </div>
+
+    </div>
+</div>

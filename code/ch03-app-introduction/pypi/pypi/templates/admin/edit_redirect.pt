@@ -1,0 +1,43 @@
+<div metal:use-macro="load: ../shared/_layout.pt">
+    <div metal:fill-slot="content">
+
+        <div class="content padded">
+            <div class="admin-block">
+                <a href="/admin/redirects"
+                   class="btn btn-info"
+                >&#171; Back to redirects home</a><br>
+
+                <h1>${"Edit" if redirect_id else "Add"} redirect</h1>
+                <br>
+                <form action="" method="POST">
+
+                    <input type="text" id="name" name="name" class="form-control" value="${name}"
+                           placeholder=" Name" title="Name: the name of this redirect for your info." required>
+                    <input type="text" placeholder=" Short URL: pypi.org/{SHORT_URL}"
+                           title="A short URL for this site, e.g. pypi.org/top"
+                           id="short_url" name="short_url" class="form-control" value="${short_url}" required>
+                    <input type="text" placeholder=" Destination URL" id="url" name="url" class="form-control"
+                           value="${url}"
+                           title="The destination of this redirect." required>
+
+                    <button type="submit" class="btn btn-primary">
+                    ${"Update" if redirect_id else "Create"} redirect
+                    </button>
+
+                    <div class="error-msg" tal:condition="error">
+                            ${error}
+                    </div>
+
+                    <input tal:condition="redirect_id" type="hidden" value="${redirect_id}" name="rid">
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <div metal:fill-slot="additional-css">
+        <link href="/static/css/admin.css" rel="stylesheet">
+    </div>
+
+</div>

@@ -1,0 +1,25 @@
+<div metal:use-macro="load: ../shared/_layout.pt">
+    <div metal:fill-slot="content">
+
+        <div class="admin-block padded">
+            <h1>Admin section</h1>
+            <div>
+                <h2>Actions</h2>
+                <ul>
+                    <li>
+                        <a href="/admin/redirects">Redirects</a>
+                    </li>
+                    <li>
+                        <a href="/admin/pages">CMS Pages</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div metal:fill-slot="additional-css">
+        <link href="/static/css/admin.css" rel="stylesheet">
+    </div>
+
+</div>

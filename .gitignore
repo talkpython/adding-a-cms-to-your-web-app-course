@@ -127,3 +127,17 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+.idea/dataSources.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/pypi: ch3-app-intro.iml
+.idea/webResources.xml
+Project_Default.xml
+dataSources.xml
+code/ch03-app-introduction/pypi/.idea/encodings.xml
+code/ch03-app-introduction/pypi/.idea/misc.xml
+code/ch03-app-introduction/pypi/.idea/modules.xml
+code/ch03-app-introduction/pypi/.idea/pypi: ch3-app-intro.iml
+code/ch03-app-introduction/pypi/.idea/vcs.xml
+code/ch03-app-introduction/pypi/.idea/webResources.xml
