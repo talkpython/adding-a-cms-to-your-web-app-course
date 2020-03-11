@@ -5,9 +5,7 @@ from pyramid.config import Configurator
 from pypi.data.db_session import DbSession
 
 
-def main(global_config, **settings):
-    """ This function returns a Pyramid WSGI application.
-    """
+def main(_, **settings):
     config = Configurator(settings=settings)
     init_includes(config)
     init_db(config)
