@@ -58,6 +58,11 @@ def init_routing(config):
     config.add_route('add_page', '/admin/add_page')
     config.add_route('edit_page', '/admin/edit_page/{page_id}')
 
+    # CMS Route
+    # /company/history
+    # sub_path = [company, history]
+    config.add_route('cms_request', '*sub_path')
+
     config.scan()
 
 
