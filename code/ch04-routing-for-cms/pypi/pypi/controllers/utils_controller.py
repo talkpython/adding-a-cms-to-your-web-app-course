@@ -1,4 +1,6 @@
-from pyramid.view import view_config
+from pyramid.view import view_config, notfound_view_config
+
+from pypi.viewmodels.shared.viewmodel_base import ViewModelBase
 from pypi.viewmodels.utils.sitemap_viewmodel import SiteMapViewModel
 
 
@@ -17,3 +19,11 @@ def sitemap(request):
 def robots(request):
     request.response.content_type = 'text/plain'
     return {}
+
+
+# ################### Not Found #################################
+
+@notfound_view_config(renderer='pypi:templates/utils/404.pt')
+def robots(request):
+    request.response.status = 404
+    return ViewModelBase(request).to_dict()
