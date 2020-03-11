@@ -120,7 +120,6 @@ footer {
 }
 
 
-
 .details .pypi-stats {
     text-align: left;
     color: #555;
@@ -155,9 +154,11 @@ footer {
     font-weight: 300;
     display: inline-block;
 }
+
 .go-latest-button {
     background-color: #3a7d32;
 }
+
 .go-older-button {
     background-color: #c63e45;
 }
@@ -184,7 +185,6 @@ h3 {
 .nav-sidebar-section {
     padding-top: 15px;
 }
-
 
 
 .nav-sidebar-section a {
@@ -242,4 +242,19 @@ h3 {
     padding: 20px;
     padding-left: 40px;
     padding-right: 40px;
+}
+
+.page404 {
+    text-align: center;
+}
+.starter-template .content  .page404 h1 {
+    font-size: 2.5em;
+}
+
+.page404 img {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
