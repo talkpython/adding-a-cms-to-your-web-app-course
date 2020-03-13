@@ -11,15 +11,15 @@ pages = {
     }
 }
 
-redirects = [
-    {
+redirects = {
+    'courses': {
         'url': 'https://training.talkpython.fm/courses/all',
         'name': 'Courses',
         'short_url': 'courses',
     },
-    {
+    'bytes': {
         'url': 'https://pythonbytes.fm/',
         'name': 'Python Bytes',
         'short_url': 'bytes',
     }
-]
+}
