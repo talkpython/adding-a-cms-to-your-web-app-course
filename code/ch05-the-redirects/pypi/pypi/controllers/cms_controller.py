@@ -17,6 +17,10 @@ def cms_request(request: Request):
 
     redirect = cms_service.get_redirect(url)
     if redirect:
-        return HTTPFound(redirect.get('url'))
+        dest = redirect.get('url')
+        if request.query_string:
+            dest = f'{dest}?{request.query_string}'
+
+        return HTTPFound(dest)
 
     raise HTTPNotFound()
