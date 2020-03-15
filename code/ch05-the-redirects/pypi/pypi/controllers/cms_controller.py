@@ -3,24 +3,16 @@ from pyramid.request import Request
 from pyramid.response import Response
 from pyramid.view import view_config
 
-from pypi.services import cms_service
+from pypi.viewmodels.cms.cms_request_viewmodel import CmsRequestViewModel
 
 
 @view_config(route_name='cms_request')  # , renderer='pypi:templates/home/index.pt')
 def cms_request(request: Request):
-    sub_path = request.matchdict.get('sub_path')
-    url = '/'.join(sub_path)
+    vm = CmsRequestViewModel(request)
+    if vm.page:
+        return Response(body=f'Title: {vm.page.get("title")}...')
 
-    page = cms_service.get_page(url)
-    if page:
-        return Response(body=f"Title: {page.get('title')}, Contents: {page.get('contents')}")
-
-    redirect = cms_service.get_redirect(url)
-    if redirect:
-        dest = redirect.get('url')
-        if request.query_string:
-            dest = f'{dest}?{request.query_string}'
-
-        return HTTPFound(dest)
+    if vm.redirect:
+        return HTTPFound(vm.redirect_url)
 
     raise HTTPNotFound()
