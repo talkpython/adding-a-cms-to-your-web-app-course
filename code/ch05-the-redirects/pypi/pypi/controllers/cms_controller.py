@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNotFound
+from pyramid.httpexceptions import HTTPNotFound, HTTPFound
 from pyramid.request import Request
 from pyramid.response import Response
 from pyramid.view import view_config
@@ -12,7 +12,11 @@ def cms_request(request: Request):
     url = '/'.join(sub_path)
 
     page = cms_service.get_page(url)
-    if not page:
-        raise HTTPNotFound()
+    if page:
+        return Response(body=f"Title: {page.get('title')}, Contents: {page.get('contents')}")
 
-    return Response(body=f"Title: {page.get('title')}, Contents: {page.get('contents')}")
+    redirect = cms_service.get_redirect(url)
+    if redirect:
+        return HTTPFound(redirect.get('url'))
+
+    raise HTTPNotFound()
