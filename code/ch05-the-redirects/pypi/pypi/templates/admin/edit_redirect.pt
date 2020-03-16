@@ -1,0 +1,45 @@
+<div metal:use-macro="load: ../shared/_layout.pt">
+    <div metal:fill-slot="content">
+
+        <div class="content admin-page">
+
+            <div class="admin-block">
+                <h1>Add new redirect</h1>
+
+                <form action="" method="POST">
+                    <input type="text" id="name" name="name" class="form-control"
+                           placeholder=" Name of the redirect"
+                           title="Name: the name of the redirect."
+                           value="${name}" required>
+
+                    <input type="text" id="short_url" name="short_url" class="form-control"
+                           placeholder=" Short URL: pypi.org/{SHORT_URL}"
+                           title="Short URL: pypi.org/{SHORT_URL}"
+                           value="${short_url}" required>
+
+                    <input type="text" id="url" name="url" class="form-control"
+                           placeholder=" Destination URL."
+                           title="Destination URL: Final url to land on."
+                           value="${url}" required>
+
+                    <div class="error-msg" tal:condition="error">
+                            ${error}
+                    </div>
+
+                    <button type="submit" class="btn btn-danger">
+                        Create redirect
+                    </button>
+
+                    <input tal:condition="redirect_id"
+                            type="hidden" name="redirect_id"
+                            value="${redirect_id}">
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <div metal:fill-slot="additional-css" tal:omit-tag>
+        <link href="${request.static_url('pypi:static/css/admin.css')}" rel="stylesheet">
+    </div>
+</div>

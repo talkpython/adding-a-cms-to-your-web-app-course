@@ -18,3 +18,15 @@ def get_redirect(url: str) -> dict:
 
 def all_redirects() -> List[dict]:
     return list(fake_data.redirects.values())
+
+
+def create_redirect(name, short_url, url):
+    data = {
+        'id': 5,
+        'url': url,
+        'short_url': short_url,
+        'name': name,
+
+    }
+
+    fake_data.redirects[short_url] = data
