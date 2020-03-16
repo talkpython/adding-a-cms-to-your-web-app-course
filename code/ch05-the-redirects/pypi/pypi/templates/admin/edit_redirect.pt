@@ -4,7 +4,7 @@
         <div class="content admin-page">
 
             <div class="admin-block">
-                <h1>Add new redirect</h1>
+                <h1>${'Add new' if not redirect_id else 'Edit the {}'.format(name)} redirect</h1>
 
                 <form action="" method="POST">
                     <input type="text" id="name" name="name" class="form-control"
@@ -27,7 +27,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-danger">
-                        Create redirect
+                        ${'Create' if not redirect_id else 'Save'} redirect
                     </button>
 
                     <input tal:condition="redirect_id"

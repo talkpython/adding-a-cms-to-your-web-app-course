@@ -26,7 +26,33 @@ def create_redirect(name, short_url, url):
         'url': url,
         'short_url': short_url,
         'name': name,
-
     }
 
     fake_data.redirects[short_url] = data
+
+
+def get_redirect_by_id(redirect_id):
+    if not redirect_id:
+        return None
+
+    redirect = None
+    for k, r in fake_data.redirects.items():
+        if str(r.get('id', '')) == redirect_id:
+            redirect = r
+            break
+
+    return redirect
+
+
+def update_redirect(redirect_id, name, short_url, url):
+    redirect = get_redirect_by_id(redirect_id)
+    if not redirect:
+        return
+
+    del fake_data.redirects[redirect['short_url']]
+
+    redirect['name'] = name
+    redirect['short_url'] = short_url
+    redirect['url'] = url
+
+    fake_data.redirects[short_url] = redirect
