@@ -3,6 +3,7 @@ form input.form-control {
 }
 
 .admin-block {
+    text-align: left;
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;

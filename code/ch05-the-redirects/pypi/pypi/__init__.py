@@ -49,7 +49,7 @@ def init_routing(config):
     config.add_route('robots.txt', '/robots.txt')
 
     # admin controller
-    config.add_route('admin_home', '/admin')
+    config.add_route('admin_index', '/admin')
     config.add_route('redirects', '/admin/redirects')
     config.add_route('add_redirect', '/admin/add_redirect')
     config.add_route('edit_redirect', '/admin/edit_redirect/{redirect_id}')
