@@ -28,3 +28,7 @@ h1 {
     padding: 15px;
     width: 100%;
 }
+
+.link {
+    font-weight: bold;
+}
