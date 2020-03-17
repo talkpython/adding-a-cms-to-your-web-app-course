@@ -152,3 +152,5 @@ code/ch05-the-redirects/pypi/.idea/pypi: ch05-redirects.iml
 code/ch05-the-redirects/pypi/.idea/modules.xml
 code/ch05-the-redirects/pypi/.idea/pypi.iml
 code/ch05-the-redirects/pypi/.idea/inspectionProfiles/profiles_settings.xml
+misc.xml
+modules.xml
