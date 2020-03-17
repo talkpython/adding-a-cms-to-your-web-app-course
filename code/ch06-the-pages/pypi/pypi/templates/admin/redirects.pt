@@ -10,7 +10,7 @@
                 </div>
                 <ul>
                     <li tal:repeat="r redirects">
-                        <a class="btn btn-success btn-sm" href="${r.url}" target="_blank">test</a>
+                        <a class="btn btn-success btn-sm" href="/${r.short_url}" target="_blank">test</a>
                         <a class="btn btn-danger btn-sm" href="/admin/edit_redirect/${r.id}">edit</a>
                         <span class="link">/${r.short_url}</span>
                         <span>${r.name}</span>
