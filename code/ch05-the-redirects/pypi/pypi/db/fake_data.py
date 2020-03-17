@@ -13,13 +13,15 @@ pages = {
 
 redirects = {
     'courses': {
+        'id': 1,
         'url': 'https://training.talkpython.fm/courses/all',
-        'name': 'Courses',
         'short_url': 'courses',
+        'name': 'Courses',
     },
     'bytes': {
+        'id': 2,
         'url': 'https://pythonbytes.fm/',
-        'name': 'Python Bytes',
         'short_url': 'bytes',
+        'name': 'Python Bytes',
     }
 }
