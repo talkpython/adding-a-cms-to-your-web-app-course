@@ -27,7 +27,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-danger">
-                        ${'Create' if not redirect_id else 'Save'} redirect
+                    ${'Create' if not redirect_id else 'Save'} redirect
                     </button>
 
                     <input tal:condition="redirect_id"

@@ -1,8 +1,7 @@
-from pyramid.httpexceptions import HTTPForbidden, HTTPFound
+from pyramid.httpexceptions import HTTPFound
 from pyramid.request import Request
 from pyramid.view import view_config
 
-from pypi.data.users import User
 from pypi.infrastructure import permissions
 from pypi.services import cms_service
 from pypi.viewmodels.admin.editredirect_viewmodel import EditRedirectViewModel
@@ -14,7 +13,6 @@ from pypi.viewmodels.shared.viewmodel_base import ViewModelBase
 @permissions.admin
 def index(request: Request):
     vm = ViewModelBase(request)
-
     return vm.to_dict()
 
 

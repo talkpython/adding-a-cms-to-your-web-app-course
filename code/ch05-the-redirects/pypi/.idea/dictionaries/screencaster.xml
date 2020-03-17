@@ -2,8 +2,6 @@
   <dictionary name="screencaster">
     <words>
       <w>pypi</w>
-      <w>uwsgi</w>
-      <w>venv</w>
     </words>
   </dictionary>
 </component>
