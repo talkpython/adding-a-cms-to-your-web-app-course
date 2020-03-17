@@ -147,3 +147,5 @@ code/ch04-routing-for-cms/pypi/.idea/modules.xml
 code/ch04-routing-for-cms/pypi/.idea/pypi: ch04-routing-for-cms.iml
 code/ch04-routing-for-cms/pypi/.idea/vcs.xml
 code/ch04-routing-for-cms/pypi/.idea/webResources.xml
+code/ch05-the-redirects/pypi/.idea/misc.xml
+code/ch05-the-redirects/pypi/.idea/pypi: ch05-redirects.iml
