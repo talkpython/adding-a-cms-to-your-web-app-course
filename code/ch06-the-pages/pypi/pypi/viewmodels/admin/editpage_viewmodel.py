@@ -33,5 +33,5 @@ class EditPageViewModel(ViewModelBase):
 
         if not self.page and cms_service.get_page(self.url):
             self.error = f"A page with url {self.url} already exists!"
-        if self.page and not cms_service.get_redirect_by_id(self.page_id):
+        if self.page and not cms_service.get_page_by_id(self.page_id):
             self.error = f"A page with ID {self.page_id} was not found!"

@@ -52,6 +52,26 @@ def add_page_post(request: Request):
     return add_or_edit_page(request)
 
 
+#################################################
+#       EDIT PAGE
+#
+@view_config(route_name='edit_page',
+             request_method='GET',
+             renderer='pypi:templates/admin/edit_page.pt')
+@permissions.admin
+def edit_page_get(request: Request):
+    vm = EditPageViewModel(request)
+    return vm.to_dict()
+
+
+@view_config(route_name='edit_page',
+             request_method='POST',
+             renderer='pypi:templates/admin/edit_page.pt')
+@permissions.admin
+def edit_page_post(request: Request):
+    return add_or_edit_page(request)
+
+
 def add_or_edit_page(request: Request):
     vm = EditPageViewModel(request)
 
