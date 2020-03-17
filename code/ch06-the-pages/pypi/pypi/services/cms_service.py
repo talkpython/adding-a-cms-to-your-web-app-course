@@ -1,3 +1,4 @@
+import random
 from typing import List
 
 from pypi.db import fake_data
@@ -60,3 +61,43 @@ def update_redirect(redirect_id, name, short_url, url):
 
 def all_pages():
     return list(fake_data.pages.values())
+
+
+def get_page_by_id(page_id):
+    if not page_id:
+        return None
+
+    page = None
+    for k, page in fake_data.pages.items():
+        if str(page.get('id', '')) == page_id:
+            page = page
+            break
+
+    return page
+
+
+def update_page(page_id, title, url, contents):
+    page = get_page_by_id(page_id)
+    if not page or not url:
+        return
+
+    url = url.lower().strip()
+    if contents:
+        contents = contents.strip()
+    if title:
+        title = title.strip()
+
+    page['title'] = title
+    page['url'] = url
+    page['contents'] = contents
+
+
+def create_page(title, url, contents):
+    data = {
+        'id': random.randint(5, 10000),
+        'url': url,
+        'title': title,
+        'contents': contents,
+    }
+
+    fake_data.pages[url] = data

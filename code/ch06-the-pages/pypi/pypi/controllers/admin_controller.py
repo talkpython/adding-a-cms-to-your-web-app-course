@@ -4,6 +4,7 @@ from pyramid.view import view_config
 
 from pypi.infrastructure import permissions
 from pypi.services import cms_service
+from pypi.viewmodels.admin.editpage_viewmodel import EditPageViewModel
 from pypi.viewmodels.admin.editredirect_viewmodel import EditRedirectViewModel
 from pypi.viewmodels.admin.pagelist_viewmodel import PagesListViewModel
 from pypi.viewmodels.admin.redirectlist_viewmodel import RedirectListViewModel
@@ -29,6 +30,41 @@ def redirects(request: Request):
 def pages(request: Request):
     vm = PagesListViewModel(request)
     return vm.to_dict()
+
+
+#################################################
+#       ADD PAGE
+#
+@view_config(route_name='add_page',
+             request_method='GET',
+             renderer='pypi:templates/admin/edit_page.pt')
+@permissions.admin
+def add_page_get(request: Request):
+    vm = EditPageViewModel(request)
+    return vm.to_dict()
+
+
+@view_config(route_name='add_page',
+             request_method='POST',
+             renderer='pypi:templates/admin/edit_page.pt')
+@permissions.admin
+def add_page_post(request: Request):
+    return add_or_edit_page(request)
+
+
+def add_or_edit_page(request: Request):
+    vm = EditPageViewModel(request)
+
+    vm.process_form()
+    if vm.error:
+        return vm.to_dict()
+
+    if vm.page_id:
+        cms_service.update_page(vm.page_id, vm.title, vm.url, vm.contents)
+    else:
+        cms_service.create_page(vm.title, vm.url, vm.contents)
+
+    return HTTPFound('/admin/pages')
 
 
 #################################################
