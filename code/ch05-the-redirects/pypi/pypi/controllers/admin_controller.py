@@ -40,15 +40,7 @@ def add_redirect_get(request: Request):
              renderer='pypi:templates/admin/edit_redirect.pt')
 @permissions.admin
 def add_redirect_post(request: Request):
-    vm = EditRedirectViewModel(request)
-
-    vm.process_form()
-    if vm.error:
-        return vm.to_dict()
-
-    cms_service.create_redirect(vm.name, vm.short_url, vm.url)
-
-    return HTTPFound('/admin/redirects')
+    return add_or_edit_redirect(request)
 
 
 #################################################
@@ -68,12 +60,19 @@ def edit_redirect_get(request: Request):
              renderer='pypi:templates/admin/edit_redirect.pt')
 @permissions.admin
 def edit_redirect_post(request: Request):
+    return add_or_edit_redirect(request)
+
+
+def add_or_edit_redirect(request: Request):
     vm = EditRedirectViewModel(request)
 
     vm.process_form()
     if vm.error:
         return vm.to_dict()
 
-    cms_service.update_redirect(vm.redirect_id, vm.name, vm.short_url, vm.url)
+    if vm.redirect:
+        cms_service.update_redirect(vm.redirect_id, vm.name, vm.short_url, vm.url)
+    else:
+        cms_service.create_redirect(vm.name, vm.short_url, vm.url)
 
     return HTTPFound('/admin/redirects')
