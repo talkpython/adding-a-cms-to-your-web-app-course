@@ -8,6 +8,16 @@ pages = {
         'url': 'company/employees',
         'title': 'Our team',
         'contents': 'Details about company employees ...',
+    },
+    'donate': {
+        'url': 'donate',
+        'title': 'Donate to the PSF',
+        'contents': '''
+<div>
+    <p>Did you know that you can actually donate to the PSF? Use their donation link here:</p>  
+    <p><a href="https://www.python.org/psf/donations/">python.org/psf/donations/</a></p>
+</div>
+        '''.strip()
     }
 }
 
