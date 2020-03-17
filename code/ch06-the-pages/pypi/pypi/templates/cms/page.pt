@@ -11,10 +11,11 @@
 
     </div>
 
-    <div metal:fill-slot="additional-css" tal:omit-tag>
+    <div metal:fill-slot="additional-css" tal:omit-tag="True">
         <!-- additional css from the page -->
     </div>
-    <div metal:fill-slot="page-title" tal:omit-tag>
+
+    <div metal:fill-slot="page-title" tal:omit-tag="True">
         PyPI: ${page.title}
     </div>
 </div>
