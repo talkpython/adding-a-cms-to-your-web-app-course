@@ -1,0 +1,19 @@
+<div metal:use-macro="load: ../shared/_layout.pt">
+    <div metal:fill-slot="content">
+
+        <div class="content">
+            <div class="page404">
+                <h1>We've just can't find that page, sorry!</h1>
+                <div>
+                    Head back to the <a href="/">top of the site</a>.
+                </div>
+                <a href="/"><img src="/static/img/404.png" alt=""></a><br>
+            </div>
+        </div>
+
+    </div>
+
+    <div metal:fill-slot="additional-css" tal:omit-tag>
+        <!-- additional css from the page -->
+    </div>
+</div>
