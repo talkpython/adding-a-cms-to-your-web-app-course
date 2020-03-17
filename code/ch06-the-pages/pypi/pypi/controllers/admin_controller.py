@@ -5,6 +5,7 @@ from pyramid.view import view_config
 from pypi.infrastructure import permissions
 from pypi.services import cms_service
 from pypi.viewmodels.admin.editredirect_viewmodel import EditRedirectViewModel
+from pypi.viewmodels.admin.pagelist_viewmodel import PagesListViewModel
 from pypi.viewmodels.admin.redirectlist_viewmodel import RedirectListViewModel
 from pypi.viewmodels.shared.viewmodel_base import ViewModelBase
 
@@ -20,6 +21,13 @@ def index(request: Request):
 @permissions.admin
 def redirects(request: Request):
     vm = RedirectListViewModel(request)
+    return vm.to_dict()
+
+
+@view_config(route_name='pages', renderer='pypi:templates/admin/pages.pt')
+@permissions.admin
+def pages(request: Request):
+    vm = PagesListViewModel(request)
     return vm.to_dict()
 
 

@@ -56,3 +56,7 @@ def update_redirect(redirect_id, name, short_url, url):
     redirect['url'] = url
 
     fake_data.redirects[short_url] = redirect
+
+
+def all_pages():
+    return list(fake_data.pages.values())

@@ -1,15 +1,18 @@
 pages = {
     'company/history': {
+        'id': 1,
         'url': 'company/history',
         'title': 'Company history',
         'contents': 'Details about company history...',
     },
     'company/employees': {
+        'id': 2,
         'url': 'company/employees',
         'title': 'Our team',
         'contents': 'Details about company employees ...',
     },
     'donate': {
+        'id': 3,
         'url': 'donate',
         'title': 'Donate to the PSF',
         'contents': '''

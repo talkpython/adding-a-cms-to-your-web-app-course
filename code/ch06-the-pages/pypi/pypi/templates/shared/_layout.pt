@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="${request.static_url('pypi:static/img/pyramid-16x16.png')}">
 
     <title>
-        <div metal:define-slot="page-title">
+        <div metal:define-slot="page-title" tal:omit-tag="True">
             PyPI CMS Course (demo)
         </div>
     </title>
