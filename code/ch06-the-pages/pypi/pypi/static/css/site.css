@@ -247,14 +247,20 @@ h3 {
 .page404 {
     text-align: center;
 }
-.starter-template .content  .page404 h1 {
+
+.starter-template .content .page404 h1 {
     font-size: 2.5em;
 }
 
 .page404 img {
     width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 20px auto;
+}
+
+.cms-page h1 {
+    text-align: center;
+}
+
+.starter-template .content.cms-page {
+    text-align: left;
 }

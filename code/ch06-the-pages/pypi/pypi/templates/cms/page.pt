@@ -1,16 +1,20 @@
 <div metal:use-macro="load: ../shared/_layout.pt">
     <div metal:fill-slot="content">
 
-        <div class="content padded">
-            <h1>About</h1>
-            <div>
-                This is the stuff about our site.
-            </div>
+        <div class="content cms-page padded">
+
+            <h1>${page.title}</h1>
+
+            ${html}
+
         </div>
 
     </div>
 
     <div metal:fill-slot="additional-css" tal:omit-tag>
         <!-- additional css from the page -->
+    </div>
+    <div metal:fill-slot="page-title" tal:omit-tag>
+        PyPI: ${page.title}
     </div>
 </div>

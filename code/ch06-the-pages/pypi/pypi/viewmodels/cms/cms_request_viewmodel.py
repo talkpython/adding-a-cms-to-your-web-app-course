@@ -13,6 +13,10 @@ class CmsRequestViewModel(ViewModelBase):
         self.url = '/'.join(self.sub_path)
 
         self.page = cms_service.get_page(self.url)
+        self.html = None
+        if self.page:
+            self.html = self.page.get('contents')
+
         self.redirect = cms_service.get_redirect(self.url)
         self.redirect_url = None
         if self.redirect:

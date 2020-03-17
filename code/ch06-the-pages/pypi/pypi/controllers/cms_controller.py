@@ -6,11 +6,11 @@ from pyramid.view import view_config
 from pypi.viewmodels.cms.cms_request_viewmodel import CmsRequestViewModel
 
 
-@view_config(route_name='cms_request')  # , renderer='pypi:templates/home/index.pt')
+@view_config(route_name='cms_request', renderer='pypi:templates/cms/page.pt')
 def cms_request(request: Request):
     vm = CmsRequestViewModel(request)
     if vm.page:
-        return Response(body=f'Title: {vm.page.get("title")}...')
+        return vm.to_dict()
 
     if vm.redirect:
         return HTTPFound(vm.redirect_url)

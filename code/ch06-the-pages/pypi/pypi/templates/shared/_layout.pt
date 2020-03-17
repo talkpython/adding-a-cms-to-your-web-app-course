@@ -8,7 +8,11 @@
     <meta name="author" content="Talk Python Training">
     <link rel="shortcut icon" href="${request.static_url('pypi:static/img/pyramid-16x16.png')}">
 
-    <title>PyPI CMS Course (demo)</title>
+    <title>
+        <div metal:define-slot="page-title">
+            PyPI CMS Course (demo)
+        </div>
+    </title>
 
     <!-- Bootstrap core CSS -->
     <link href="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
@@ -32,75 +36,75 @@
     <![endif]-->
 
     <div metal:define-slot="additional-css"></div>
-  </head>
+</head>
 
-  <body>
+<body>
 
-  <div id="page-content">
+<div id="page-content">
 
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">
-                        <img src="/static/img/pypi-logo.svg"/>
-                    </a>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/help">Help</a></li>
-                        <li><a href="/donate">Donate</a></li>
-
-                        <li><a href="/account/login" tal:condition="not user_id">Login</a></li>
-                        <li><a href="/account/register" id="last_nav_link" tal:condition="not user_id">Register</a></li>
-
-
-                        <li><a href="/account" tal:condition="user_id">Account</a></li>
-                        <li><a href="/admin" tal:condition="user and user.is_admin">Admin</a></li>
-                        <li><a href="/account/logout" id="last_nav_link" tal:condition="user_id">Logout</a></li>
-
-
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
-
-        <div class="starter-template">
-            <div metal:define-slot="content">No content</div>
-        </div>
-
-
-        <footer>
-            <div class="copyright">
-                This is a fake site built during a course.<br>
-                It's meant to model / simulate the real <a href="https://pypi.org">pypi.org</a><br>
-                <br>
-                Copyright &copy; <a href="https://training.talkpython.fm">Talk Python Training</a>.
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <img src="/static/img/pypi-logo.svg"/>
+                </a>
             </div>
-        </footer>
 
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/help">Help</a></li>
+                    <li><a href="/donate">Donate</a></li>
+
+                    <li><a href="/account/login" tal:condition="not user_id">Login</a></li>
+                    <li><a href="/account/register" id="last_nav_link" tal:condition="not user_id">Register</a></li>
+
+
+                    <li><a href="/account" tal:condition="user_id">Account</a></li>
+                    <li><a href="/admin" tal:condition="user and user.is_admin">Admin</a></li>
+                    <li><a href="/account/logout" id="last_nav_link" tal:condition="user_id">Logout</a></li>
+
+
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="starter-template">
+        <div metal:define-slot="content">No content</div>
     </div>
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="//oss.maxcdn.com/libs/jquery/1.10.2/jquery.min.js"
-            integrity="sha384-aBL3Lzi6c9LNDGvpHkZrrm3ZVsIwohDD7CDozL0pk8FwCrfmV7H9w8j3L7ikEv6h"
-            crossorigin="anonymous"></script>
-    <script src="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"
-            integrity="sha384-s1ITto93iSMDxlp/79qhWHi+LsIi9Gx6yL+cOKDuymvihkfol83TYbLbOw+W/wv4"
-            crossorigin="anonymous"></script>
+    <footer>
+        <div class="copyright">
+            This is a fake site built during a course.<br>
+            It's meant to model / simulate the real <a href="https://pypi.org">pypi.org</a><br>
+            <br>
+            Copyright &copy; <a href="https://training.talkpython.fm">Talk Python Training</a>.
+        </div>
+    </footer>
 
-    <div metal:define-slot="additional-js" tal:omit-tag></div>
+</div>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="//oss.maxcdn.com/libs/jquery/1.10.2/jquery.min.js"
+        integrity="sha384-aBL3Lzi6c9LNDGvpHkZrrm3ZVsIwohDD7CDozL0pk8FwCrfmV7H9w8j3L7ikEv6h"
+        crossorigin="anonymous"></script>
+<script src="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"
+        integrity="sha384-s1ITto93iSMDxlp/79qhWHi+LsIi9Gx6yL+cOKDuymvihkfol83TYbLbOw+W/wv4"
+        crossorigin="anonymous"></script>
+
+<div metal:define-slot="additional-js" tal:omit-tag></div>
   </body>
 </html>
