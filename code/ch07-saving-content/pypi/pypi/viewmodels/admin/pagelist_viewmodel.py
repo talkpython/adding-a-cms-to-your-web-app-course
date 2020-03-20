@@ -1,7 +1,6 @@
 from pyramid.request import Request
-from pyramid.response import Response
 
-from pypi.services import user_service, package_service, cms_service
+from pypi.services import cms_service
 from pypi.viewmodels.shared.viewmodel_base import ViewModelBase
 
 

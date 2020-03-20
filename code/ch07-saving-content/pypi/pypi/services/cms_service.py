@@ -4,6 +4,7 @@ from typing import List, Optional
 from sqlalchemy.orm import Session
 
 from pypi import DbSession
+from pypi.data.pages import Page
 from pypi.data.redirects import Redirect
 from pypi.db import fake_data
 
@@ -22,7 +23,7 @@ def get_redirect(url: str) -> Optional[Redirect]:
 def all_redirects() -> List[Redirect]:
     session: Session = DbSession.create()
     try:
-        return session.query(Redirect).order_by(Redirect.created_date.desc())
+        return session.query(Redirect).order_by(Redirect.created_date.desc()).all()
     finally:
         session.close()
 
@@ -70,52 +71,71 @@ def update_redirect(redirect_id, name, short_url, url):
         session.close()
 
 
-def get_page(url: str) -> dict:
+def get_page(url: str) -> Optional[Page]:
     if url:
         url = url.lower().strip()
-    page = fake_data.pages.get(url)
-    return page
+
+    session = DbSession.create()
+    try:
+        return session.query(Page).filter(Page.url == url).first()
+    finally:
+        session.close()
 
 
 def all_pages():
-    return list(fake_data.pages.values())
+    session = DbSession.create()
+    try:
+        return session.query(Page).order_by(Page.created_date.desc()).all()
+    finally:
+        session.close()
 
 
-def get_page_by_id(page_id):
+def get_page_by_id(page_id: int) -> Optional[Page]:
     if not page_id:
         return None
 
-    page = None
-    for k, page in fake_data.pages.items():
-        if str(page.get('id', '')) == page_id:
-            page = page
-            break
-
-    return page
+    session = DbSession.create()
+    try:
+        return session.query(Page).filter(Page.id == id).first()
+    finally:
+        session.close()
 
 
 def update_page(page_id, title, url, contents):
-    page = get_page_by_id(page_id)
-    if not page or not url:
-        return
+    session = DbSession.create()
+    try:
+        page = session.query(Page).filter(Page.url == url).first()
+        if not page or not url:
+            return
 
+        url = url.lower().strip()
+        if contents:
+            contents = contents.strip()
+        if title:
+            title = title.strip()
+
+        page.title = title
+        page.url = url
+        page.contents = contents
+
+        session.commit()
+
+    finally:
+        session.close()
+
+
+def create_page(title, url, contents):
+    session = DbSession.create()
     url = url.lower().strip()
     if contents:
         contents = contents.strip()
     if title:
         title = title.strip()
 
-    page['title'] = title
-    page['url'] = url
-    page['contents'] = contents
+    page = Page()
+    page.title = title
+    page.url = url
+    page.contents = contents
+    session.add(page)
 
-
-def create_page(title, url, contents):
-    data = {
-        'id': random.randint(5, 10000),
-        'url': url,
-        'title': title,
-        'contents': contents,
-    }
-
-    fake_data.pages[url] = data
+    session.commit()

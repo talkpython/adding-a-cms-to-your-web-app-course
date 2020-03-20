@@ -1,7 +1,6 @@
 from pyramid.request import Request
-from pyramid.response import Response
 
-from pypi.services import user_service, package_service, cms_service
+from pypi.services import cms_service
 from pypi.viewmodels.shared.viewmodel_base import ViewModelBase
 
 
@@ -17,9 +16,9 @@ class EditPageViewModel(ViewModelBase):
         self.error = None
 
         if self.page:
-            self.url = self.page.get('url')
-            self.title = self.page.get('title')
-            self.contents = self.page.get('contents')
+            self.url = self.page.url
+            self.title = self.page.title
+            self.contents = self.page.contents
 
     def process_form(self):
         d = self.request_dict
