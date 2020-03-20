@@ -38,13 +38,14 @@ def all_redirects() -> List[Redirect]:
     return redirects
 
 
-def create_redirect(name: str, short_url: str, url: str):
+def create_redirect(name: str, short_url: str, url: str, user_email: str):
     session: Session = DbSession.create()
 
     redirect = Redirect()
     redirect.url = url.strip()
     redirect.short_url = short_url.strip().lower()
     redirect.name = name.strip()
+    redirect.creating_user = user_email
 
     session.add(redirect)
     session.commit()
@@ -65,17 +66,20 @@ def get_redirect_by_id(redirect_id: int) -> Optional[Redirect]:
 
 
 def update_redirect(redirect_id, name, short_url, url):
-    redirect = get_redirect_by_id(redirect_id)
-    if not redirect:
-        return
+    session: Session = DbSession.create()
+    try:
+        redirect = session.query(Redirect).filter(Redirect.id == redirect_id).first()
 
-    del fake_data.redirects[redirect['short_url']]
+        if not redirect:
+            return
 
-    redirect['name'] = name
-    redirect['short_url'] = short_url
-    redirect['url'] = url
+        redirect.name = name.strip()
+        redirect.short_url = short_url.lower().strip()
+        redirect.url = url.strip()
 
-    fake_data.redirects[short_url] = redirect
+        session.commit()
+    finally:
+        session.close()
 
 
 def all_pages():

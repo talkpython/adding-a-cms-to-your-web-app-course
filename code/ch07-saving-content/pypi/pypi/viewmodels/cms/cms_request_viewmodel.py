@@ -20,6 +20,6 @@ class CmsRequestViewModel(ViewModelBase):
         self.redirect = cms_service.get_redirect(self.url)
         self.redirect_url = None
         if self.redirect:
-            self.redirect_url = self.redirect.get('url')
+            self.redirect_url = self.redirect.url
             if request.query_string:
                 self.redirect_url = f'{self.redirect_url}?{request.query_string}'

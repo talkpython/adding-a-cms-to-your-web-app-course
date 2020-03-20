@@ -137,6 +137,6 @@ def add_or_edit_redirect(request: Request):
     if vm.redirect_id:
         cms_service.update_redirect(vm.redirect_id, vm.name, vm.short_url, vm.url)
     else:
-        cms_service.create_redirect(vm.name, vm.short_url, vm.url)
+        cms_service.create_redirect(vm.name, vm.short_url, vm.url, vm.user.email)
 
     return HTTPFound('/admin/redirects')

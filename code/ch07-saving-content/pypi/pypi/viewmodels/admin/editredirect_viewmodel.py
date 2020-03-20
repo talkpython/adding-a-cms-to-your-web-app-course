@@ -17,9 +17,9 @@ class EditRedirectViewModel(ViewModelBase):
         self.error = None
 
         if self.redirect:
-            self.short_url = self.redirect.get('short_url')
-            self.url = self.redirect.get('url')
-            self.name = self.redirect.get('name')
+            self.short_url = self.redirect.short_url
+            self.url = self.redirect.url
+            self.name = self.redirect.name
 
     def process_form(self):
         d = self.request_dict
