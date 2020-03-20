@@ -21,3 +21,5 @@ import pypi.data.releases
 import pypi.data.users
 # noinspection PyUnresolvedReferences
 import pypi.data.pages
+# noinspection PyUnresolvedReferences
+import pypi.data.redirects
