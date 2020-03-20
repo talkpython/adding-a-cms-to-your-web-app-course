@@ -8,34 +8,23 @@ from pypi.data.redirects import Redirect
 from pypi.db import fake_data
 
 
-def get_page(url: str) -> dict:
-    if url:
-        url = url.lower().strip()
-    page = fake_data.pages.get(url)
-    return page
-
-
 def get_redirect(url: str) -> Optional[Redirect]:
     if url:
         url = url.lower().strip()
 
     session: Session = DbSession.create()
-
-    redirect = session.query(Redirect).filter(Redirect.short_url == url).first()
-
-    session.close()
-
-    return redirect
+    try:
+        return session.query(Redirect).filter(Redirect.short_url == url).first()
+    finally:
+        session.close()
 
 
 def all_redirects() -> List[Redirect]:
     session: Session = DbSession.create()
-
-    redirects = session.query(Redirect).order_by(Redirect.created_date.desc())
-
-    session.close()
-
-    return redirects
+    try:
+        return session.query(Redirect).order_by(Redirect.created_date.desc())
+    finally:
+        session.close()
 
 
 def create_redirect(name: str, short_url: str, url: str, user_email: str):
@@ -58,11 +47,10 @@ def get_redirect_by_id(redirect_id: int) -> Optional[Redirect]:
         return None
 
     session: Session = DbSession.create()
-    redirect = session.query(Redirect).filter(Redirect.id == redirect_id).first()
-
-    session.close()
-
-    return redirect
+    try:
+        return session.query(Redirect).filter(Redirect.id == redirect_id).first()
+    finally:
+        session.close()
 
 
 def update_redirect(redirect_id, name, short_url, url):
@@ -80,6 +68,13 @@ def update_redirect(redirect_id, name, short_url, url):
         session.commit()
     finally:
         session.close()
+
+
+def get_page(url: str) -> dict:
+    if url:
+        url = url.lower().strip()
+    page = fake_data.pages.get(url)
+    return page
 
 
 def all_pages():
