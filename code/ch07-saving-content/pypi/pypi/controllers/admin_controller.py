@@ -82,7 +82,7 @@ def add_or_edit_page(request: Request):
     if vm.page_id:
         cms_service.update_page(vm.page_id, vm.title, vm.url, vm.contents)
     else:
-        cms_service.create_page(vm.title, vm.url, vm.contents)
+        cms_service.create_page(vm.title, vm.url, vm.contents, vm.user.email)
 
     return HTTPFound('/admin/pages')
 

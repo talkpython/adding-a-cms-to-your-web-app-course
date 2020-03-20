@@ -15,7 +15,7 @@ class CmsRequestViewModel(ViewModelBase):
         self.page = cms_service.get_page(self.url)
         self.html = None
         if self.page:
-            self.html = self.page.get('contents')
+            self.html = self.page.contents
 
         self.redirect = cms_service.get_redirect(self.url)
         self.redirect_url = None

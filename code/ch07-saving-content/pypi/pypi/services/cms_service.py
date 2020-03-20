@@ -1,4 +1,3 @@
-import random
 from typing import List, Optional
 
 from sqlalchemy.orm import Session
@@ -6,7 +5,6 @@ from sqlalchemy.orm import Session
 from pypi import DbSession
 from pypi.data.pages import Page
 from pypi.data.redirects import Redirect
-from pypi.db import fake_data
 
 
 def get_redirect(url: str) -> Optional[Redirect]:
@@ -124,7 +122,7 @@ def update_page(page_id, title, url, contents):
         session.close()
 
 
-def create_page(title, url, contents):
+def create_page(title: str, url: str, contents: str, user_email: str) -> Page:
     session = DbSession.create()
     url = url.lower().strip()
     if contents:
@@ -136,6 +134,9 @@ def create_page(title, url, contents):
     page.title = title
     page.url = url
     page.contents = contents
+    page.creating_user = user_email
     session.add(page)
 
     session.commit()
+
+    return page
