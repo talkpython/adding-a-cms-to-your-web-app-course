@@ -1,5 +1,3 @@
-from typing import Any
-
 from pyramid.request import Request
 
 
