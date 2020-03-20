@@ -1,6 +1,10 @@
 import random
-from typing import List
+from typing import List, Optional
 
+from sqlalchemy.orm import Session
+
+from pypi import DbSession
+from pypi.data.redirects import Redirect
 from pypi.db import fake_data
 
 
@@ -11,36 +15,51 @@ def get_page(url: str) -> dict:
     return page
 
 
-def get_redirect(url: str) -> dict:
+def get_redirect(url: str) -> Optional[Redirect]:
     if url:
         url = url.lower().strip()
-    return fake_data.redirects.get(url)
+
+    session: Session = DbSession.create()
+
+    redirect = session.query(Redirect).filter(Redirect.short_url == url).first()
+
+    session.close()
+
+    return redirect
 
 
-def all_redirects() -> List[dict]:
-    return list(fake_data.redirects.values())
+def all_redirects() -> List[Redirect]:
+    session: Session = DbSession.create()
+
+    redirects = session.query(Redirect).order_by(Redirect.created_date.desc())
+
+    session.close()
+
+    return redirects
 
 
-def create_redirect(name, short_url, url):
-    data = {
-        'id': 5,
-        'url': url,
-        'short_url': short_url,
-        'name': name,
-    }
+def create_redirect(name: str, short_url: str, url: str):
+    session: Session = DbSession.create()
 
-    fake_data.redirects[short_url] = data
+    redirect = Redirect()
+    redirect.url = url.strip()
+    redirect.short_url = short_url.strip().lower()
+    redirect.name = name.strip()
+
+    session.add(redirect)
+    session.commit()
+
+    return redirect
 
 
-def get_redirect_by_id(redirect_id):
+def get_redirect_by_id(redirect_id: int) -> Optional[Redirect]:
     if not redirect_id:
         return None
 
-    redirect = None
-    for k, r in fake_data.redirects.items():
-        if str(r.get('id', '')) == redirect_id:
-            redirect = r
-            break
+    session: Session = DbSession.create()
+    redirect = session.query(Redirect).filter(Redirect.id == redirect_id).first()
+
+    session.close()
 
     return redirect
 
