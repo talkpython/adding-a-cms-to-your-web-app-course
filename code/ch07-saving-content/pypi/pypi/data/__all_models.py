@@ -19,3 +19,5 @@ import pypi.data.packages
 import pypi.data.releases
 # noinspection PyUnresolvedReferences
 import pypi.data.users
+# noinspection PyUnresolvedReferences
+import pypi.data.pages
