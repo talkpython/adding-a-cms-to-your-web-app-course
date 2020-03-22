@@ -94,7 +94,7 @@ def get_page_by_id(page_id: int) -> Optional[Page]:
 
     session = DbSession.create()
     try:
-        return session.query(Page).filter(Page.id == id).first()
+        return session.query(Page).filter(Page.id == page_id).first()
     finally:
         session.close()
 
