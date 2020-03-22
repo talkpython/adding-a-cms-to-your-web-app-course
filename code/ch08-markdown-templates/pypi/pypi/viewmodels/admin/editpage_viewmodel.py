@@ -11,7 +11,7 @@ class EditPageViewModel(ViewModelBase):
         self.url = ''
         self.title = ''
         self.contents = ''
-        self.page_id = self.request_dict.get('page_id')
+        self.page_id = int(self.request_dict.get('page_id', -1))
         self.page = cms_service.get_page_by_id(self.page_id)
         self.error = None
 
@@ -25,7 +25,7 @@ class EditPageViewModel(ViewModelBase):
         self.url = d.get('url')
         self.contents = d.get('contents')
         self.title = d.get('title')
-        self.page_id = d.get('page_id')
+        self.page_id = int(d.get('page_id', -1))
 
         if not self.url:
             self.error = "You must specify a url"

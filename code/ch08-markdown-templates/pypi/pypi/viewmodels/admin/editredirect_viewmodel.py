@@ -11,7 +11,7 @@ class EditRedirectViewModel(ViewModelBase):
         self.short_url = None
         self.url = None
         self.name = None
-        self.redirect_id = self.request_dict.get('redirect_id')
+        self.redirect_id = int(self.request_dict.get('redirect_id', -1))
         self.redirect = cms_service.get_redirect_by_id(self.redirect_id)
         self.error = None
 
