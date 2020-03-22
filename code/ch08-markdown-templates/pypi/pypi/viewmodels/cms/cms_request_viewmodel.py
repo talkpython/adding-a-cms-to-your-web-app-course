@@ -1,4 +1,5 @@
 from pyramid.request import Request
+import markdown2
 
 from pypi.services import cms_service
 from pypi.viewmodels.shared.viewmodel_base import ViewModelBase
@@ -14,7 +15,8 @@ class CmsRequestViewModel(ViewModelBase):
         self.page = cms_service.get_page(self.url)
         self.html = None
         if self.page:
-            self.html = self.page.contents
+            self.html = self.convert_to_markdown(self.page.contents)
+            # self.html = self.convert_to_markdown((self.page.contents + '\n')*20)
 
         self.redirect = cms_service.get_redirect(self.url)
         self.redirect_url = None
@@ -22,3 +24,15 @@ class CmsRequestViewModel(ViewModelBase):
             self.redirect_url = self.redirect.url
             if request.query_string:
                 self.redirect_url = f'{self.redirect_url}?{request.query_string}'
+
+    # noinspection PyMethodMayBeStatic
+    def convert_to_markdown(self, md_text) -> str:
+        extras = [
+            "cuddled-lists",
+            "code-friendly",
+            "fenced-code-blocks",
+            "tables"
+        ]
+
+        html = markdown2.markdown(md_text, extras=extras, safe_mode=True)
+        return html
