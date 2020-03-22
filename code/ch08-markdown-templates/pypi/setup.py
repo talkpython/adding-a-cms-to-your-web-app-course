@@ -9,19 +9,13 @@ with open(os.path.join(here, 'README.txt')) as f:
 with open(os.path.join(here, 'CHANGES.txt')) as f:
     CHANGES = f.read()
 
-requires = [
-    'passlib',
-    'python-dateutil',
-    'progressbar2',
-    'plaster_pastedeploy',
-    'pyramid',
-    'pyramid_chameleon',
-    'pyramid_debugtoolbar',
-    'sqlalchemy',
-    'waitress',
-    # git+git://github.com/mikeckennedy/markdown-subtemplate
-]
-
+reqs_txt = os.path.join(os.path.dirname(__file__), 'requirements.txt')
+with open(reqs_txt, 'r') as fin:
+    requires = [
+        line.strip()
+        for line in fin
+        if line and line.strip()
+    ]
 
 tests_require = [
     'WebTest >= 1.3.1',  # py3 compat
