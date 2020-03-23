@@ -43,7 +43,17 @@
 
     </div>
 
-    <div metal:fill-slot="additional-css" tal:omit-tag>
-        <link href="${request.static_url('pypi:static/css/admin.css')}" rel="stylesheet">
+    <div metal:fill-slot="additional-css" tal:omit-tag='True'>
+        <link href="/static/css/admin.css" rel="stylesheet">
+        <link href="/static/node_modules/simplemde/dist/simplemde.min.css" rel="stylesheet">
+    </div>
+
+    <div metal:fill-slot="additional-js" tal:omit-tag='True'>
+        <script src="/static/node_modules/simplemde/dist/simplemde.min.js"></script>
+        <script>
+            let editor = new SimpleMDE({
+               element: document.getElementById('contents')
+            });
+        </script>
     </div>
 </div>

@@ -35,7 +35,7 @@
             crossorigin="anonymous"></script>
     <![endif]-->
 
-    <div metal:define-slot="additional-css"></div>
+    <div metal:define-slot="additional-css" tal:omit-tag="True"></div>
 </head>
 
 <body>
@@ -105,6 +105,6 @@
         integrity="sha384-s1ITto93iSMDxlp/79qhWHi+LsIi9Gx6yL+cOKDuymvihkfol83TYbLbOw+W/wv4"
         crossorigin="anonymous"></script>
 
-<div metal:define-slot="additional-js" tal:omit-tag></div>
+<div metal:define-slot="additional-js" tal:omit-tag="True"></div>
   </body>
 </html>
