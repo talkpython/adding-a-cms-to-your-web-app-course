@@ -1,0 +1,59 @@
+<div metal:use-macro="load: ../shared/_layout.pt">
+    <div metal:fill-slot="content">
+
+        <div class="content admin-page">
+
+            <div class="admin-block">
+                <h1>${'Add new' if not page_id else 'Edit the {}'.format(title)} page</h1>
+
+                <form action="" method="POST">
+                    <input type="text" id="title" name="title" class="form-control"
+                           placeholder=" Page title"
+                           title="Title: The title and h1 of the page"
+                           value="${title}" required>
+
+                    <input type="text" id="url" name="url" class="form-control"
+                           placeholder=" URL: pypi.org/{URL}"
+                           title="URL: pypi.org/{URL}"
+                           value="${url}" required>
+
+                    <textarea name="contents" id="contents" cols="50" rows="10"
+                              placeholder="Contents (HTML) of your page."
+                    >${structure:contents}</textarea>
+
+<!--?                    <input type="text" id="url" name="url" class="form-control"-->
+<!--?                           placeholder=" Destination URL."-->
+<!--?                           title="Destination URL: Final url to land on."-->
+<!--?                           value="${url}" required>-->
+
+                    <div class="error-msg" tal:condition="error">
+                            ${error}
+                    </div>
+
+                    <button type="submit" class="btn btn-danger">
+                    ${'Create' if not page_id else 'Save'} page
+                    </button>
+
+                    <input tal:condition="page_id"
+                            type="hidden" name="page_id"
+                            value="${page_id}">
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <div metal:fill-slot="additional-css" tal:omit-tag='True'>
+        <link href="/static/css/admin.css" rel="stylesheet">
+        <link href="/static/node_modules/simplemde/dist/simplemde.min.css" rel="stylesheet">
+    </div>
+
+    <div metal:fill-slot="additional-js" tal:omit-tag='True'>
+        <script src="/static/node_modules/simplemde/dist/simplemde.min.js"></script>
+        <script>
+            let editor = new SimpleMDE({
+               element: document.getElementById('contents')
+            });
+        </script>
+    </div>
+</div>
