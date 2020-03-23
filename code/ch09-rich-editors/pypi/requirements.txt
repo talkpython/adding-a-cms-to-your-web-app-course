@@ -1,0 +1,10 @@
+passlib
+python-dateutil
+progressbar2
+plaster_pastedeploy
+pyramid
+pyramid_chameleon
+pyramid_debugtoolbar
+markdown2
+sqlalchemy
+waitress
