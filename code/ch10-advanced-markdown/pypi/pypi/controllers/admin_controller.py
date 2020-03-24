@@ -1,3 +1,4 @@
+from markdown_subtemplate import caching
 from pyramid.httpexceptions import HTTPFound
 from pyramid.request import Request
 from pyramid.view import view_config
@@ -81,6 +82,7 @@ def add_or_edit_page(request: Request):
 
     if vm.page_id:
         cms_service.update_page(vm.page_id, vm.title, vm.url, vm.contents)
+        caching.get_cache().clear()
     else:
         cms_service.create_page(vm.title, vm.url, vm.contents, vm.user.email)
 
