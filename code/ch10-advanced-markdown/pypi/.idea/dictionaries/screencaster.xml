@@ -5,9 +5,12 @@
       <w>debugtoolbar</w>
       <w>passlib</w>
       <w>pastedeploy</w>
+      <w>pypi</w>
+      <w>pytest</w>
       <w>routematch</w>
       <w>sqlalchemy</w>
       <w>subtemplate</w>
+      <w>tablename</w>
     </words>
   </dictionary>
 </component>

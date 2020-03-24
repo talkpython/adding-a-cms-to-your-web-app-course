@@ -13,3 +13,4 @@ class Page(SqlAlchemyBase):
     url = sqlalchemy.Column(sqlalchemy.String, index=True, nullable=False)
     title = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     contents = sqlalchemy.Column(sqlalchemy.String)
+    is_shared = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
