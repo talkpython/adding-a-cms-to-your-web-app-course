@@ -21,11 +21,6 @@
                               placeholder="Contents (HTML) of your page."
                     >${structure:contents}</textarea>
 
-<!--?                    <input type="text" id="url" name="url" class="form-control"-->
-<!--?                           placeholder=" Destination URL."-->
-<!--?                           title="Destination URL: Final url to land on."-->
-<!--?                           value="${url}" required>-->
-
                     <div class="error-msg" tal:condition="error">
                             ${error}
                     </div>
