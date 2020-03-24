@@ -76,7 +76,6 @@ def get_page(url: str) -> Optional[Page]:
     session = DbSession.create()
     try:
         page = session.query(Page).filter(Page.url == url).first()
-        page.contents = page.contents * 20
         return page
     finally:
         session.close()
