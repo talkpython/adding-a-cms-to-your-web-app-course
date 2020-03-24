@@ -102,7 +102,7 @@ def get_page_by_id(page_id: int) -> Optional[Page]:
 def update_page(page_id, title, url, contents):
     session = DbSession.create()
     try:
-        page = session.query(Page).filter(Page.url == url).first()
+        page = session.query(Page).filter(Page.id == page_id).first()
         if not page or not url:
             return
 
