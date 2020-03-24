@@ -5,7 +5,9 @@
       <w>debugtoolbar</w>
       <w>passlib</w>
       <w>pastedeploy</w>
+      <w>routematch</w>
       <w>sqlalchemy</w>
+      <w>subtemplate</w>
     </words>
   </dictionary>
 </component>

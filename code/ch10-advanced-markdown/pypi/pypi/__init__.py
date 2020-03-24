@@ -1,17 +1,25 @@
 import os
 
+from markdown_subtemplate import storage
 from pyramid.config import Configurator
 
 from pypi.data.db_session import DbSession
+from pypi.infrastructure.template_storage_engine import SubTemplateDBStorage
 
 
 def main(_, **settings):
     config = Configurator(settings=settings)
     init_includes(config)
     init_db(config)
+    init_markdown(config)
     init_routing(config)
 
     return config.make_wsgi_app()
+
+
+def init_markdown(config):
+    store = SubTemplateDBStorage()
+    storage.set_storage(store)
 
 
 def init_includes(config):

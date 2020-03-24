@@ -1,4 +1,5 @@
 markdown2
+markdown-subtemplate
 passlib
 python-dateutil
 progressbar2

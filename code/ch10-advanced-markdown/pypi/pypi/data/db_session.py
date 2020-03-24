@@ -26,9 +26,9 @@ class DbSession:
         engine = sqlalchemy.create_engine(conn_str, echo=False)
         DbSession.__engine = engine
         DbSession.__factory = sqlalchemy.orm.sessionmaker(bind=engine)
-        DbSession.is_initialized = True
 
         SqlAlchemyBase.metadata.create_all(engine)
+        DbSession.is_initialized = True
 
     @staticmethod
     def create() -> Session:
