@@ -1,6 +1,5 @@
 from pyramid.httpexceptions import HTTPNotFound, HTTPFound
 from pyramid.request import Request
-from pyramid.response import Response
 from pyramid.view import view_config
 
 from pypi.viewmodels.cms.cms_request_viewmodel import CmsRequestViewModel
