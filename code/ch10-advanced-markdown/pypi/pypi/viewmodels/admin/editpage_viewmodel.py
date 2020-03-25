@@ -11,6 +11,7 @@ class EditPageViewModel(ViewModelBase):
         self.url = ''
         self.title = ''
         self.contents = ''
+        self.is_shared = False
         self.page_id = int(self.request_dict.get('page_id', 0))
         self.page = cms_service.get_page_by_id(self.page_id)
         self.error = None
@@ -19,11 +20,13 @@ class EditPageViewModel(ViewModelBase):
             self.url = self.page.url
             self.title = self.page.title
             self.contents = self.page.contents
+            self.is_shared = self.page.is_shared
 
     def process_form(self):
         d = self.request_dict
         self.url = d.get('url')
         self.contents = d.get('contents')
+        self.is_shared = d.get('is_shared') == 'on'
         self.title = d.get('title')
         self.page_id = int(d.get('page_id', 0))
 

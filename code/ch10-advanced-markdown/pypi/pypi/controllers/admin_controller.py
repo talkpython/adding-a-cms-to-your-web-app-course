@@ -81,10 +81,10 @@ def add_or_edit_page(request: Request):
         return vm.to_dict()
 
     if vm.page_id:
-        cms_service.update_page(vm.page_id, vm.title, vm.url, vm.contents)
+        cms_service.update_page(vm.page_id, vm.title, vm.url, vm.contents, vm.is_shared)
         caching.get_cache().clear()
     else:
-        cms_service.create_page(vm.title, vm.url, vm.contents, vm.user.email)
+        cms_service.create_page(vm.title, vm.url, vm.contents, vm.user.email, vm.is_shared)
 
     return HTTPFound('/admin/pages')
 

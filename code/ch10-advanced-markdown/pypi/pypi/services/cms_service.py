@@ -100,7 +100,7 @@ def get_page_by_id(page_id: int) -> Optional[Page]:
         session.close()
 
 
-def update_page(page_id, title, url, contents):
+def update_page(page_id: int, title: str, url: str, contents: str, is_shared: bool):
     session = DbSession.create()
     try:
         page = session.query(Page).filter(Page.id == page_id).first()
@@ -116,14 +116,15 @@ def update_page(page_id, title, url, contents):
         page.title = title
         page.url = url
         page.contents = contents
+        page.is_shared = is_shared
 
         session.commit()
-
+        return page
     finally:
         session.close()
 
 
-def create_page(title: str, url: str, contents: str, user_email: str) -> Page:
+def create_page(title: str, url: str, contents: str, user_email: str, is_shared: bool) -> Page:
     session = DbSession.create()
     url = url.lower().strip()
     if contents:
@@ -136,6 +137,7 @@ def create_page(title: str, url: str, contents: str, user_email: str) -> Page:
     page.url = url
     page.contents = contents
     page.creating_user = user_email
+    page.is_shared = is_shared
     session.add(page)
 
     session.commit()
