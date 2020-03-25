@@ -7,6 +7,7 @@ from markdown_subtemplate.logging import LogLevel
 from pyramid.config import Configurator
 
 from pypi.data.db_session import DbSession
+from pypi.infrastructure.template_log_engine import SubTemplateLogger
 from pypi.infrastructure.template_storage_engine import SubTemplateDBStorage
 
 
@@ -22,12 +23,12 @@ def main(_, **settings):
 
 
 def init_logging(config) -> logbook.Logger:
-    logbook.StreamHandler(sys.stdout, level='NOTICE').push_application()
+    logbook.StreamHandler(sys.stdout, level='TRACE').push_application()
     log = logbook.Logger('App')
     log.notice('Logging initialized.')
 
     md_log = logging.get_log()
-    md_log.log_level = LogLevel.info
+    md_log.log_level = LogLevel.trace
 
     return log
 
@@ -36,7 +37,11 @@ def init_markdown(log: logbook.Logger):
     store = SubTemplateDBStorage()
     storage.set_storage(store)
 
+    log_engine = SubTemplateLogger(LogLevel.info)
+    logging.set_log(log_engine)
+
     log.notice(f'Markdown storage engine set: {type(store).__name__}.')
+    log.notice(f'Markdown logging engine set: {type(log_engine).__name__}.')
 
 
 def init_includes(config):
@@ -90,8 +95,7 @@ def init_routing(config, log: logbook.Logger):
 
     config.scan()
 
-    routes = config.get_routes_mapper().get_routes(True)
-    log.notice(f'Web routes registered: {len(routes)} routes.')
+    log.notice(f'Web routes registered.')
 
 
 def init_db(log: logbook.Logger):
