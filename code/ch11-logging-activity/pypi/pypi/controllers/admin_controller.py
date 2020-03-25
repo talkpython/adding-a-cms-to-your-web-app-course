@@ -12,7 +12,7 @@ from pypi.viewmodels.admin.pagelist_viewmodel import PagesListViewModel
 from pypi.viewmodels.admin.redirectlist_viewmodel import RedirectListViewModel
 from pypi.viewmodels.shared.viewmodel_base import ViewModelBase
 
-log = logbook.Logger('CMS')
+log = logbook.Logger('Admin')
 
 
 @view_config(route_name='admin_index', renderer='pypi:templates/admin/index.pt')
@@ -88,7 +88,7 @@ def edit_page_post(request: Request):
 def add_or_edit_page(request: Request):
     vm = EditPageViewModel(request)
 
-    log.trace(f'User {vm.user.name} adding/updating page.')
+    log.notice(f'User {vm.user.name} adding/updating page.')
 
     vm.process_form()
     if vm.error:
@@ -100,7 +100,7 @@ def add_or_edit_page(request: Request):
     else:
         cms_service.create_page(vm.title, vm.url, vm.contents, vm.user.email, vm.is_shared)
 
-    log.trace(f'User {vm.user.name} added/updated page: {vm.title} @ /{vm.url}.')
+    log.notice(f'User {vm.user.name} added/updated page: {vm.title} @ /{vm.url}.')
 
     return HTTPFound('/admin/pages')
 
@@ -148,7 +148,7 @@ def edit_redirect_post(request: Request):
 def add_or_edit_redirect(request: Request):
     vm = EditRedirectViewModel(request)
 
-    log.trace(f'User {vm.user.name} adding/updating redirect.')
+    log.notice(f'User {vm.user.name} adding/updating redirect.')
 
     vm.process_form()
     if vm.error:
@@ -159,6 +159,6 @@ def add_or_edit_redirect(request: Request):
     else:
         cms_service.create_redirect(vm.name, vm.short_url, vm.url, vm.user.email)
 
-    log.trace(f'User {vm.user.name} added/updated new redirect: {vm.name} @ {vm.short_url}.')
+    log.notice(f'User {vm.user.name} added/updated new redirect: {vm.name} @ {vm.short_url}.')
 
     return HTTPFound('/admin/redirects')
