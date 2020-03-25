@@ -2,7 +2,8 @@ import os
 import sys
 
 import logbook
-from markdown_subtemplate import storage
+from markdown_subtemplate import storage, logging
+from markdown_subtemplate.logging import LogLevel
 from pyramid.config import Configurator
 
 from pypi.data.db_session import DbSession
@@ -21,9 +22,12 @@ def main(_, **settings):
 
 
 def init_logging(config) -> logbook.Logger:
-    logbook.StreamHandler(sys.stdout).push_application()
+    logbook.StreamHandler(sys.stdout, level='NOTICE').push_application()
     log = logbook.Logger('App')
     log.notice('Logging initialized.')
+
+    md_log = logging.get_log()
+    md_log.log_level = LogLevel.info
 
     return log
 
