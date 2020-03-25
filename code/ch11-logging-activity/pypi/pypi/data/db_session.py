@@ -1,3 +1,4 @@
+import logbook
 import sqlalchemy
 import sqlalchemy.orm
 from sqlalchemy.orm import Session
@@ -5,6 +6,8 @@ from sqlalchemy.orm import Session
 from pypi.data.modelbase import SqlAlchemyBase
 # noinspection PyUnresolvedReferences
 import pypi.data.__all_models
+
+log = logbook.Logger('DbSession')
 
 
 class DbSession:
@@ -14,6 +17,8 @@ class DbSession:
 
     @staticmethod
     def global_init(db_file: str):
+        log.trace('DB initializing...')
+
         if DbSession.__factory:
             return
 
@@ -21,7 +26,7 @@ class DbSession:
             raise Exception("You must specify a data file.")
 
         conn_str = f'sqlite:///{db_file}?check_same_thread=False'
-        print(f"Connecting to DB at: {conn_str}")
+        log.notice(f"Connecting to DB at: {conn_str}")
 
         engine = sqlalchemy.create_engine(conn_str, echo=False)
         DbSession.__engine = engine

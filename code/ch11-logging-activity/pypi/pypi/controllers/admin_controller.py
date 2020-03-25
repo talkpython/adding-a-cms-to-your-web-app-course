@@ -1,3 +1,4 @@
+import logbook
 from markdown_subtemplate import caching
 from pyramid.httpexceptions import HTTPFound
 from pyramid.request import Request
@@ -11,11 +12,16 @@ from pypi.viewmodels.admin.pagelist_viewmodel import PagesListViewModel
 from pypi.viewmodels.admin.redirectlist_viewmodel import RedirectListViewModel
 from pypi.viewmodels.shared.viewmodel_base import ViewModelBase
 
+log = logbook.Logger('CMS')
+
 
 @view_config(route_name='admin_index', renderer='pypi:templates/admin/index.pt')
 @permissions.admin
 def index(request: Request):
     vm = ViewModelBase(request)
+
+    log.trace(f'User {vm.user.name} viewing admin home.')
+
     return vm.to_dict()
 
 
@@ -23,6 +29,9 @@ def index(request: Request):
 @permissions.admin
 def redirects(request: Request):
     vm = RedirectListViewModel(request)
+
+    log.trace(f'User {vm.user.name} viewing redirect list.')
+
     return vm.to_dict()
 
 
@@ -30,6 +39,9 @@ def redirects(request: Request):
 @permissions.admin
 def pages(request: Request):
     vm = PagesListViewModel(request)
+
+    log.trace(f'User {vm.user.name} viewing page list.')
+
     return vm.to_dict()
 
 
@@ -76,6 +88,8 @@ def edit_page_post(request: Request):
 def add_or_edit_page(request: Request):
     vm = EditPageViewModel(request)
 
+    log.trace(f'User {vm.user.name} adding/updating page.')
+
     vm.process_form()
     if vm.error:
         return vm.to_dict()
@@ -85,6 +99,8 @@ def add_or_edit_page(request: Request):
         caching.get_cache().clear()
     else:
         cms_service.create_page(vm.title, vm.url, vm.contents, vm.user.email, vm.is_shared)
+
+    log.trace(f'User {vm.user.name} added/updated page: {vm.title} @ {vm.url}.')
 
     return HTTPFound('/admin/pages')
 
@@ -132,6 +148,8 @@ def edit_redirect_post(request: Request):
 def add_or_edit_redirect(request: Request):
     vm = EditRedirectViewModel(request)
 
+    log.trace(f'User {vm.user.name} adding/updating redirect.')
+
     vm.process_form()
     if vm.error:
         return vm.to_dict()
@@ -140,5 +158,7 @@ def add_or_edit_redirect(request: Request):
         cms_service.update_redirect(vm.redirect_id, vm.name, vm.short_url, vm.url)
     else:
         cms_service.create_redirect(vm.name, vm.short_url, vm.url, vm.user.email)
+
+    log.trace(f'User {vm.user.name} added/updated new redirect: {vm.name} @ {vm.short_url}.')
 
     return HTTPFound('/admin/redirects')

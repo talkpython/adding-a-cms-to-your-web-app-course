@@ -1,5 +1,7 @@
 import os
+import sys
 
+import logbook
 from markdown_subtemplate import storage
 from pyramid.config import Configurator
 
@@ -9,24 +11,35 @@ from pypi.infrastructure.template_storage_engine import SubTemplateDBStorage
 
 def main(_, **settings):
     config = Configurator(settings=settings)
+    log = init_logging(config)
     init_includes(config)
-    init_db(config)
-    init_markdown(config)
-    init_routing(config)
+    init_db(log)
+    init_markdown(log)
+    init_routing(config, log)
 
     return config.make_wsgi_app()
 
 
-def init_markdown(config):
+def init_logging(config) -> logbook.Logger:
+    logbook.StreamHandler(sys.stdout).push_application()
+    log = logbook.Logger('App')
+    log.notice('Logging initialized.')
+
+    return log
+
+
+def init_markdown(log: logbook.Logger):
     store = SubTemplateDBStorage()
     storage.set_storage(store)
+
+    log.notice(f'Markdown storage engine set: {type(store).__name__}.')
 
 
 def init_includes(config):
     config.include('pyramid_chameleon')
 
 
-def init_routing(config):
+def init_routing(config, log: logbook.Logger):
     config.add_static_view('static', 'static', cache_max_age=3600)
 
     # home controller
@@ -73,8 +86,11 @@ def init_routing(config):
 
     config.scan()
 
+    routes = config.get_routes_mapper().get_routes(True)
+    log.notice(f'Web routes registered: {len(routes)} routes.')
 
-def init_db(_):
+
+def init_db(log: logbook.Logger):
     db_file = os.path.abspath(
         os.path.join(
             os.path.dirname(__file__),
@@ -82,3 +98,5 @@ def init_db(_):
             'pypi.sqlite'
         ))
     DbSession.global_init(db_file)
+
+    log.notice('DB initialized.')
