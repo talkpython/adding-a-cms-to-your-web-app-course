@@ -15,7 +15,7 @@ class SubTemplateDBStorage(storage.SubtemplateStorage):
         return page.contents
 
     def get_shared_markdown(self, import_name) -> Optional[str]:
-        page = cms_service.get_page(import_name)
+        page = cms_service.get_page(import_name, allow_shared=True)
         if not page:
             return None
 

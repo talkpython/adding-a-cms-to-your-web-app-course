@@ -20,9 +20,10 @@
                 <h2>Shared subpages</h2>
                 <ul>
                     <li class="shared_page" tal:repeat="p subpages">
-                        <a class="btn btn-success btn-sm" href="/${p.url}" target="_blank">visit</a>
                         <a class="btn btn-danger btn-sm" href="/admin/edit_page/${p.id}">edit</a>
                         <span class="link">${p.title}</span>
+                        <span>${p.url}</span>
+
                     </li>
                 </ul>
 

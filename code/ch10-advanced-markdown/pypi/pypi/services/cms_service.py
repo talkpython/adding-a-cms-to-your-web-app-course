@@ -1,6 +1,7 @@
 from typing import List, Optional
 
 from sqlalchemy.orm import Session
+import sqlalchemy as sa
 
 from pypi import DbSession
 from pypi.data.pages import Page
@@ -69,13 +70,19 @@ def update_redirect(redirect_id, name, short_url, url):
         session.close()
 
 
-def get_page(url: str) -> Optional[Page]:
+def get_page(url: str, allow_shared=False) -> Optional[Page]:
     if url:
         url = url.lower().strip()
 
     session = DbSession.create()
     try:
-        page = session.query(Page).filter(Page.url == url).first()
+        query = session.query(Page).filter(Page.url == url)
+        if not allow_shared:
+            query = query.filter(sa.or_(
+                Page.is_shared == None,
+                Page.is_shared == False))
+
+        page = query.first()
         return page
     finally:
         session.close()
