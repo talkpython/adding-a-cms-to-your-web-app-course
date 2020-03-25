@@ -100,7 +100,7 @@ def add_or_edit_page(request: Request):
     else:
         cms_service.create_page(vm.title, vm.url, vm.contents, vm.user.email, vm.is_shared)
 
-    log.trace(f'User {vm.user.name} added/updated page: {vm.title} @ {vm.url}.')
+    log.trace(f'User {vm.user.name} added/updated page: {vm.title} @ /{vm.url}.')
 
     return HTTPFound('/admin/pages')
 
