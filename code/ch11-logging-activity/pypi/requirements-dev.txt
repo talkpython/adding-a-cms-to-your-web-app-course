@@ -1,0 +1,6 @@
+-r requirements.txt
+
+alembic
+pytest
+pytest-cov
+WebTest >= 1.3.1

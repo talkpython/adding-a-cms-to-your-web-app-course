@@ -1,0 +1,24 @@
+<div metal:use-macro="load: ../shared/_layout.pt">
+    <div metal:fill-slot="content">
+
+        <div class="content admin-page">
+            <h1>Admin home</h1>
+
+            <div class="admin-block">
+                <div>
+                    Control the site from here.
+                </div>
+                <ul>
+                    <li><a href="/admin/redirects">View redirects</a></li>
+                    <li><a href="/admin/pages">View pages</a></li>
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div metal:fill-slot="additional-css" tal:omit-tag>
+        <link href="${request.static_url('pypi:static/css/admin.css')}" rel="stylesheet">
+    </div>
+</div>

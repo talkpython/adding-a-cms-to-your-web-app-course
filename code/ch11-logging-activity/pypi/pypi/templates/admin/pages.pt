@@ -1,0 +1,37 @@
+<div metal:use-macro="load: ../shared/_layout.pt">
+    <div metal:fill-slot="content">
+
+        <div class="content admin-page">
+            <h1>Pages</h1>
+
+            <div class="admin-block">
+                <div>
+                    <a href="/admin/add_page">Add new page</a>
+                </div>
+                <h2>Top-level pages</h2>
+                <ul>
+                    <li tal:repeat="p pages">
+                        <a class="btn btn-success btn-sm" href="/${p.url}" target="_blank">visit</a>
+                        <a class="btn btn-danger btn-sm" href="/admin/edit_page/${p.id}">edit</a>
+                        <span class="link">${p.title}</span>
+                    </li>
+                </ul>
+
+                <h2>Shared subpages</h2>
+                <ul>
+                    <li class="shared_page" tal:repeat="p subpages">
+                        <a class="btn btn-success btn-sm" href="/${p.url}" target="_blank">visit</a>
+                        <a class="btn btn-danger btn-sm" href="/admin/edit_page/${p.id}">edit</a>
+                        <span class="link">${p.title}</span>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div metal:fill-slot="additional-css" tal:omit-tag>
+        <link href="${request.static_url('pypi:static/css/admin.css')}" rel="stylesheet">
+    </div>
+</div>
