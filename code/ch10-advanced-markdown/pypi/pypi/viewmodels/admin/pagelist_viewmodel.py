@@ -8,4 +8,7 @@ class PagesListViewModel(ViewModelBase):
     def __init__(self, request: Request):
         super().__init__(request)
 
-        self.pages = cms_service.all_pages()
+        pages = cms_service.all_pages()
+
+        self.pages = [p for p in pages if not p.is_shared]
+        self.subpages = [p for p in pages if p.is_shared]

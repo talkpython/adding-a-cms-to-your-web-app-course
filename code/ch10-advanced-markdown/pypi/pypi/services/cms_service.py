@@ -81,7 +81,7 @@ def get_page(url: str) -> Optional[Page]:
         session.close()
 
 
-def all_pages():
+def all_pages() -> List[Page]:
     session = DbSession.create()
     try:
         return session.query(Page).order_by(Page.created_date.desc()).all()
