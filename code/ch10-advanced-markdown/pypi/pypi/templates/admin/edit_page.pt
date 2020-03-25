@@ -4,7 +4,7 @@
         <div class="content admin-page">
 
             <div class="admin-block">
-                <h1>${'Add new' if not page_id else 'Edit the {}'.format(title)} page</h1>
+                <h1>${'Add new' if not page_id else 'Edit'} page</h1>
 
                 <form action="" method="POST">
                     <input type="text" id="title" name="title" class="form-control"
@@ -16,6 +16,12 @@
                            placeholder=" URL: pypi.org/{URL}"
                            title="URL: pypi.org/{URL}"
                            value="${url}" required>
+
+                    <div>
+                        <input type="checkbox" name="is_shared" checked tal:condition="is_shared" id="is_shared">
+                        <input type="checkbox" name="is_shared" tal:condition="not is_shared" id="is_shared">
+                        <label for="is_shared">Shared content (non-public)</label>
+                    </div>
 
                     <textarea name="contents" id="contents" cols="50" rows="10"
                               placeholder="Contents (HTML) of your page."
@@ -47,7 +53,7 @@
         <script src="/static/node_modules/simplemde/dist/simplemde.min.js"></script>
         <script>
             let editor = new SimpleMDE({
-               element: document.getElementById('contents')
+                element: document.getElementById('contents')
             });
         </script>
     </div>

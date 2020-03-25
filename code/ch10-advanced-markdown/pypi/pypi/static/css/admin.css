@@ -23,12 +23,16 @@ h1 {
     margin-bottom: 5px;
 }
 
-.admin-block textarea,
-.admin-block input {
+.admin-block form > textarea,
+.admin-block form > input {
     padding: 15px;
     width: 100%;
 }
 
 .link {
     font-weight: bold;
+}
+
+.shared_page {
+    color: darkgreen;
 }
