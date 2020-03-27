@@ -1,0 +1,8 @@
+flask
+logbook
+markdown-subtemplate
+progressbar2
+python-dateutil
+passlib
+sqlalchemy
+werkzeug

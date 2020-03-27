@@ -1,0 +1,46 @@
+{% extends "shared/_layout.html" %}
+
+{% block title %}CMS Admin{% endblock %}
+{% block additional_css %}
+    <link rel="stylesheet" href="/static/css/admin.css"/>{% endblock %}
+
+{% block main_content %}
+
+    <div class="admin-block padded">
+            <a href="/admin/redirects"
+           class="btn btn-info" style="float: left; margin-top: 10px;"
+        >&#171; Back to redirects home</a>
+
+
+        <h1>{{ "Edit" if redirect_id else "Add" }} redirect</h1>
+        <br>
+        <form action="" method="POST">
+
+            <input type="text" id="name" name="name" class="form-control" value="{{ name }}"
+                   placeholder=" Name" title="Name: the name of this redirect for your info." required>
+            <input type="text" placeholder=" Short URL: pypi.org/{SHORT_URL}"
+                   title="A short URL for this site, e.g. pypi.org/top"
+                   id="short_url" name="short_url" class="form-control" value="{{ short_url }}" required>
+            <input type="text" placeholder=" Destination URL" id="url" name="url" class="form-control"
+                   value="{{ url }}"
+                   title="The destination of this redirect." required>
+
+            <button type="submit" class="btn btn-primary">
+                {{ "Update" if redirect_id else "Create" }} redirect
+            </button>
+
+            {% if error %}
+                <div class="error-msg">
+                    {{ error }}
+                </div>
+            {% endif %}
+
+            {% if redirect_id %}
+                <input type="hidden" value="{{ redirect_id }}" name="redirect_id">
+            {% endif %}
+
+        </form>
+    </div>
+
+
+{% endblock %}

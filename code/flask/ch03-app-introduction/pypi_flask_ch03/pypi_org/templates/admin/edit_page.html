@@ -1,0 +1,61 @@
+{% extends "shared/_layout.html" %}
+
+{% block title %}CMS Admin{% endblock %}
+{% block additional_css %}
+    <link rel="stylesheet" href="/static/css/admin.css"/>
+    <link href="/static/node_modules/simplemde/dist/simplemde.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block main_content %}
+
+    <div class="admin-block padded">
+        <a href="/admin/pages"
+           class="btn btn-info" style="float: left; margin-top: 10px;"
+        >&#171; Back to pages home</a>
+
+        <h1>{{ "Edit" if page_id else "Add" }} CMS page</h1>
+        <br>
+        <form action="" method="POST">
+
+            <input type="text" id="title" name="title" class="form-control" value="{{ title }}"
+                   placeholder=" Title" title="Title: the title of this CMS page." required>
+            <input type="text" placeholder=" URL: pypi.org/{URL}"
+                   title="The URL for the page, e.g. /top/voted"
+                   id="url" name="url" class="form-control" value="{{ url }}" required>
+
+            <div>
+                <input type="checkbox" id="is_shared" name="is_shared" {% if is_shared %}checked{% endif %}>
+                <label for="is_shared">Shared content (non-public)</label>
+            </div>
+
+
+            <textarea name="contents" id="contents" rows="15"
+                      placeholder="HTML contents"
+            >{{ contents|safe }}</textarea>
+
+            <button type="submit" class="btn btn-primary">
+                {% if page_id %}Update{% else %}Create{% endif %} page
+            </button>
+
+            {% if error %}
+                <div class="error-msg">
+                    ${error}
+                </div>
+            {% endif %}
+
+            {% if error %}
+                <input type="hidden" value="{{ page_id }}" name="page_id">
+            {% endif %}
+
+        </form>
+    </div>
+
+
+{% endblock %}
+
+{% block additional_js %}
+    <script src="/static/node_modules/simplemde/dist/simplemde.min.js" crossorigin="anonymous"></script>
+    <script>
+        let simplemde = new SimpleMDE({element: document.getElementById("contents"), spellChecker: false});
+    </script>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "shared/_layout.html" %}
+
+{% block title %}CMS Admin{% endblock %}
+{% block additional_css %}
+    <link rel="stylesheet" href="/static/css/admin.css"/>{% endblock %}
+
+{% block main_content %}
+
+
+    <div class="admin-block padded redirects">
+        <h1>CMS Pages</h1>
+        <a href="/admin"
+           class="btn btn-info"
+        >&#171; Back to admin home</a>
+        <a class="btn btn-success" href="/admin/add_page">Add new CMS page</a>
+        <br>
+        <br>
+        <h2>Top-level pages</h2>
+        <ul>
+            {% for p in pages %}
+                <li>
+                    <a href="/{{ p.url }}" class="btn btn-primary btn-sm" target="_blank">view</a>
+                    <a href="/admin/edit_page/{{ p.id }}" class="btn btn-danger btn-sm">edit</a>
+                    <strong>{{ p.title }}</strong>
+                    <span>{{ p.url }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+        <h2>Shared page content</h2>
+        <ul>
+            {% for p in sub_pages %}
+                <li class="shared_page">
+                    <a href="/admin/edit_page/{{ p.id }}" class="btn btn-danger btn-sm">edit</a>
+                    <strong>{{ p.title }}</strong>
+                    <span>{{ p.url }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+
+
+    </div>
+
+{% endblock %}
