@@ -139,7 +139,8 @@ def do_import_packages(file_data: List[dict], user_lookup: Dict[str, User]):
                 load_package(p, user_lookup)
                 bar.update(idx)
             except Exception as x:
-                errored_packages.append((p, f" *** Errored out for package {p.get('package_name')}, {x}"))
+                errored_packages.append(
+                    (p, f" *** Errored out for package {p.get('package_name')}, {x}"))
                 raise
     sys.stderr.flush()
     sys.stdout.flush()
@@ -152,7 +153,7 @@ def do_import_packages(file_data: List[dict], user_lookup: Dict[str, User]):
 def do_load_files() -> List[dict]:
     data_path = os.path.abspath(
         os.path.join(os.path.dirname(__file__),
-                     '../../../../../data/pypi-top-100')
+                     '../../../../../../data/pypi-top-100')
     )
     print(f"Loading files from {data_path}")
     files = get_file_names(data_path)
@@ -178,8 +179,10 @@ def find_users(data: List[dict]) -> dict:
     with progressbar.ProgressBar(max_value=len(data)) as bar:
         for idx, p in enumerate(data):
             info = p.get('info')
-            found_users.update(get_email_and_name_from_text(info.get('author'), info.get('author_email')))
-            found_users.update(get_email_and_name_from_text(info.get('maintainer'), info.get('maintainer_email')))
+            found_users.update(get_email_and_name_from_text(
+                info.get('author'), info.get('author_email')))
+            found_users.update(get_email_and_name_from_text(
+                info.get('maintainer'), info.get('maintainer_email')))
             bar.update(idx)
 
     sys.stderr.flush()
@@ -239,7 +242,8 @@ def load_package(data: dict, user_lookup: Dict[str, User]):
         if releases:
             p.created_date = releases[0].created_date
 
-        maintainers_lookup = get_email_and_name_from_text(info.get('maintainer'), info.get('maintainer_email'))
+        maintainers_lookup = get_email_and_name_from_text(
+            info.get('maintainer'), info.get('maintainer_email'))
         maintainers = []
         for email, name in maintainers_lookup.items():
             user = user_lookup.get(email)
