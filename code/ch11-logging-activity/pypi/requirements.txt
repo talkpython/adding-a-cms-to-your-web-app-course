@@ -1,3 +1,4 @@
+logbook
 markdown2
 markdown-subtemplate
 passlib
