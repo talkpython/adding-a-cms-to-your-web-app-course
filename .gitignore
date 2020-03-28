@@ -159,3 +159,5 @@ webResources.xml
 code/ch11-logging-activity/pypi/pypich11flaskvenv
 code/pyramid/ch11-logging-activity/pypi/pypich11flaskvenv
 pypi: ch05-redirects.iml
+code/flask/ch04-routing-for-cms/pypi_flask_ch04/.idea/$CACHE_FILE$
+code/flask/ch04-routing-for-cms/pypi_flask_ch04/.idea/vagrant.xml
