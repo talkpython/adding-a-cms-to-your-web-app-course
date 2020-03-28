@@ -41,19 +41,3 @@ def response(*, mimetype: str = None, template_file: str = None):
         return view_method
 
     return response_inner
-
-#
-# def template(template_file: str = None):
-#     def template_inner(f):
-#         @wraps(f)
-#         def view_method(*args, **kwargs):
-#             data_dict = f(*args, **kwargs)
-#             if not isinstance(data_dict, dict):
-#                 raise Exception(
-#                     "Invalid return type {}, we expected a dict as the return value.".format(type(data_dict)))
-#
-#             return flask.render_template(template_file, **data_dict)
-#
-#         return view_method
-#
-#     return template_inner

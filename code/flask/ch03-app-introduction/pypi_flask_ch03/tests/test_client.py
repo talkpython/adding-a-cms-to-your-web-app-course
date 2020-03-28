@@ -1,4 +1,5 @@
 # noinspection PyPackageRequirements
+import logbook
 import pytest
 
 import sys
@@ -17,14 +18,15 @@ from pypi_org.app import app as flask_app
 def client():
     flask_app.config['TESTING'] = True
     client = flask_app.test_client()
+    log = logbook.Logger('unittests')
 
     # noinspection PyBroadException,PyUnusedLocal
     try:
-        pypi_org.app.register_blueprints()
+        pypi_org.app.register_blueprints(log)
     except Exception as x:
         # print(x)
         pass
 
-    pypi_org.app.setup_db()
+    pypi_org.app.setup_db(log)
 
     yield client

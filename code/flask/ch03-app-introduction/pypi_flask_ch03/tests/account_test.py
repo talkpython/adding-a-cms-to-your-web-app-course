@@ -2,6 +2,7 @@ from flask import Response
 
 from pypi_org.data.users import User
 from pypi_org.viewmodels.account.register_viewmodel import RegisterViewModel
+# noinspection PyUnresolvedReferences
 from tests.test_client import flask_app, client
 import unittest.mock
 
@@ -92,9 +93,10 @@ def test_int_account_home_no_login(client):
 
 
 def test_int_account_home_with_login(client):
-    target = 'pypi_org.services.user_service.find_user_by_id'
     test_user = User(name='Michael', email='michael@talkpython.fm')
-    with unittest.mock.patch(target, return_value=test_user):
+    p1 = unittest.mock.patch('pypi_org.services.user_service.find_user_by_id', return_value=test_user)
+    p2 = unittest.mock.patch('pypi_org.infrastructure.cookie_auth.get_user_id_via_auth_cookie', return_value="value")
+    with p1, p2:
         resp: Response = client.get('/account')
 
     assert resp.status_code == 200

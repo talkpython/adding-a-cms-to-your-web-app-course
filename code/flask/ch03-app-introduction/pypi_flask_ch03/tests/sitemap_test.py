@@ -2,6 +2,9 @@ import xml.etree.ElementTree
 
 from flask import Response
 
+# noinspection PyUnresolvedReferences
+from tests.test_client import client
+
 
 def test_int_site_mapped_urls(client):
     text = get_sitemap_text(client)
