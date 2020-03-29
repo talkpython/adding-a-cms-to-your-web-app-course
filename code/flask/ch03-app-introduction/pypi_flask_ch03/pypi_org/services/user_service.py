@@ -1,6 +1,7 @@
 from typing import Optional
 
 from passlib.handlers.sha2_crypt import sha512_crypt as crypto
+
 import pypi_org.data.db_session as db_session
 from pypi_org.data.users import User
 
