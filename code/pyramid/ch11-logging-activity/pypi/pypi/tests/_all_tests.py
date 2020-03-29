@@ -1,11 +1,11 @@
 # noinspection PyUnresolvedReferences
-from pypi.tests.account_tests import *
+from pypi.tests.account_test import *
 # noinspection PyUnresolvedReferences
-from pypi.tests.package_tests import *
+from pypi.tests.package_test import *
 # noinspection PyUnresolvedReferences
-from pypi.tests.home_tests import *
+from pypi.tests.home_test import *
 # noinspection PyUnresolvedReferences
-from pypi.tests.sitemap_tests import *
+from pypi.tests.sitemap_test import *
 
 import unittest
 
