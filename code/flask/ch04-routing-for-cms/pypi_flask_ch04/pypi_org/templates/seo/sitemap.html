@@ -8,13 +8,13 @@
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>{{site}}/account/login</loc>
+        <loc>{{ site }}/account/login</loc>
         <lastmod>{{ last_updated_text }}</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>{{site}}/account/register</loc>
+        <loc>{{ site }}/account/register</loc>
         <lastmod>${last_updated_text}</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.8</priority>
@@ -23,11 +23,11 @@
 
     <!-- DYNAMIC PAGES (basically packages) -->
     {% for p in packages %}
-    <url>
-        <loc>{{site}}/project/{{p.id}}</loc>
-        <lastmod>{{p.created_date.isoformat()}}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.0</priority>
-    </url>
-    {%  endfor %}
+        <url>
+            <loc>{{ site }}/project/{{ p.id }}</loc>
+            <lastmod>{{ p.created_date.isoformat() }}</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>1.0</priority>
+        </url>
+    {% endfor %}
 </urlset>

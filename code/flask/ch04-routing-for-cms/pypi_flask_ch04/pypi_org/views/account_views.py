@@ -1,8 +1,8 @@
 import flask
 
+import pypi_org.infrastructure.cookie_auth as cookie_auth
 from pypi_org.infrastructure.view_modifiers import response
 from pypi_org.services import user_service
-import pypi_org.infrastructure.cookie_auth as cookie_auth
 from pypi_org.viewmodels.account.index_viewmodel import IndexViewModel
 from pypi_org.viewmodels.account.login_viewmodel import LoginViewModel
 from pypi_org.viewmodels.account.register_viewmodel import RegisterViewModel
