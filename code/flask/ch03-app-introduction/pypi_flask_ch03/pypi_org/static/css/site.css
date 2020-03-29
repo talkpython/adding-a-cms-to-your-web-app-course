@@ -160,3 +160,12 @@ code {
 code, kbd, pre, samp {
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+
+.page404 {
+    text-align: center;
+}
+
+.page404 img {
+    width: 50%;
+    margin: 20px auto;
+}
