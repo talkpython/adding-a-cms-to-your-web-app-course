@@ -1,7 +1,7 @@
 import flask
 
 from pypi_org.infrastructure.view_modifiers import response
-from pypi_org.viewmodels.packages.pagedetails_viewmodel import PackageDetailsViewModel
+from pypi_org.viewmodels.packages.packagedetails_viewmodel import PackageDetailsViewModel
 
 blueprint = flask.Blueprint('packages', __name__, template_folder='templates')
 
