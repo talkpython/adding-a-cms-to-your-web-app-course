@@ -49,9 +49,11 @@ def register_blueprints(log: logbook.Logger):
     from pypi_org.views import account_views
     from pypi_org.views import seo_view
     from pypi_org.views import cms_views
+    from pypi_org.views import error_views
 
-    app.register_blueprint(package_views.blueprint)
     app.register_blueprint(home_views.blueprint)
+    app.register_blueprint(error_views.blueprint)
+    app.register_blueprint(package_views.blueprint)
     app.register_blueprint(account_views.blueprint)
     app.register_blueprint(seo_view.blueprint)
     app.register_blueprint(cms_views.blueprint)
