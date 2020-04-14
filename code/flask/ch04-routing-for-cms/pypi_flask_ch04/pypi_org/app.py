@@ -48,12 +48,13 @@ def register_blueprints(log: logbook.Logger):
     from pypi_org.views import package_views
     from pypi_org.views import account_views
     from pypi_org.views import seo_view
+    from pypi_org.views import cms_views
 
     app.register_blueprint(package_views.blueprint)
     app.register_blueprint(home_views.blueprint)
     app.register_blueprint(account_views.blueprint)
     app.register_blueprint(seo_view.blueprint)
-    # Put our CMS routes here...
+    app.register_blueprint(cms_views.blueprint)
 
     log.notice("Registered blueprints.")
 
