@@ -2,6 +2,7 @@
   <dictionary name="screencaster">
     <words>
       <w>endblock</w>
+      <w>multidict</w>
       <w>navbar</w>
       <w>toggler</w>
     </words>

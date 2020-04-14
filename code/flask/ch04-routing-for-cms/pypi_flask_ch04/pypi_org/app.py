@@ -53,6 +53,7 @@ def register_blueprints(log: logbook.Logger):
     app.register_blueprint(home_views.blueprint)
     app.register_blueprint(account_views.blueprint)
     app.register_blueprint(seo_view.blueprint)
+    # Put our CMS routes here...
 
     log.notice("Registered blueprints.")
 
