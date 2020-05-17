@@ -13,6 +13,11 @@ def cms_request(full_url):
 
     redirect = cms_service.get_redirect(full_url)
     if redirect:
-        return flask.redirect(redirect.get('url'))
+        dest = redirect.get('url')
+        query = flask.request.query_string
+        if query:
+            query = query.decode('utf-8')
+            dest = f'{dest}?{query}'
+        return flask.redirect(dest)
 
     return flask.abort(404)
