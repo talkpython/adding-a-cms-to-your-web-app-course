@@ -2,6 +2,7 @@ import flask
 
 from pypi_org.infrastructure import permissions
 from pypi_org.infrastructure.view_modifiers import response
+from pypi_org.viewmodels.admin.editredirect_viewmodel import EditRedirectViewModel
 from pypi_org.viewmodels.admin.redirectlist_viewmodel import RedirectListViewModel
 from pypi_org.viewmodels.shared.viewmodelbase import ViewModelBase
 
@@ -21,4 +22,24 @@ def index():
 @response(template_file='admin/redirects.html')
 def redirects():
     vm = RedirectListViewModel()
+    return vm.to_dict()
+
+
+# ADD_REDIRECT VIEWS ####################################
+#
+#
+@permissions.admin
+@blueprint.route('/admin/add_redirect', methods=['GET'])
+@response(template_file='admin/edit_redirect.html')
+def add_redirect_get():
+    vm = EditRedirectViewModel()
+    return vm.to_dict()
+
+
+@permissions.admin
+@blueprint.route('/admin/add_redirect', methods=['POST'])
+@response(template_file='admin/edit_redirect.html')
+def add_redirect_post():
+    # TODO: NEEDS WORKS
+    vm = EditRedirectViewModel()
     return vm.to_dict()
