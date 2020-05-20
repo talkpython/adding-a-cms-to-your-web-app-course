@@ -32,3 +32,7 @@ h1 {
 .shared_page {
     color: darkgreen;
 }
+
+.link {
+    font-weight: bold;
+}

@@ -1,4 +1,4 @@
-from typing import Optional, Dict
+from typing import Optional, Dict, List
 
 from pypi_org.db import fake_data
 
@@ -21,3 +21,11 @@ def get_redirect(base_url: str) -> Optional[Dict]:
 
     redirect = fake_data.redirects.get(base_url)
     return redirect
+
+
+def all_pages() -> List[Dict]:
+    return list(fake_data.pages.values())
+
+
+def all_redirects() -> List[Dict]:
+    return list(fake_data.redirects.values())
