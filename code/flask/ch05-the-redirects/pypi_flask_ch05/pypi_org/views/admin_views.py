@@ -40,7 +40,10 @@ def add_redirect_get():
 @blueprint.route('/admin/add_redirect', methods=['POST'])
 @response(template_file='admin/edit_redirect.html')
 def add_redirect_post():
-    # TODO: NEEDS WORK
     vm = EditRedirectViewModel()
-    print(f"Got data: {vm.request_dict}")
-    return vm.to_dict()
+
+    if not vm.validate():
+        return vm.to_dict()
+
+    print(f"WOULD HAVE CREATED: {vm.short_url} -> {vm.url}")
+    return flask.redirect('/admin/redirects')

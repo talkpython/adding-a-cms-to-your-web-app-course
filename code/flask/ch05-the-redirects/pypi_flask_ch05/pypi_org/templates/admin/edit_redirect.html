@@ -13,21 +13,24 @@
                        id="name" name="name"
                        placeholder="The name of the redirect"
                        title="The name of the redirect"
+                       value="{{ name }}"
                        required>
 
                 <input type="text" class="form-control"
                        id="short_url" name="short_url"
                        placeholder="The short URL on our site: fakepypi.org/{SHORT_URL}"
                        title="The short URL on our site."
+                       value="{{ short_url }}"
                        required>
 
                 <input type="text" class="form-control"
                        id="url" name="url"
                        placeholder="The destination URL."
                        title="The destination URL."
+                       value="{{ url }}"
                        required>
 
-                <input type="hidden" name="id" id="id">
+                <input type="hidden" name="id" id="id" value="{{ id }}">
 
                 {% if error %}
                     <div class="error-msg">

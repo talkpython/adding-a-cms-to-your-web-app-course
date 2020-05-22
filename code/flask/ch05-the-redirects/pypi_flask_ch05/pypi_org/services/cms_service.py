@@ -29,3 +29,19 @@ def all_pages() -> List[Dict]:
 
 def all_redirects() -> List[Dict]:
     return list(fake_data.redirects.values())
+
+
+def get_redirect_by_id(redirect_id: int) -> Optional[dict]:
+    for url, redirect in fake_data.redirects.items():
+        if redirect.get('id') == redirect_id:
+            return redirect
+
+    return None
+
+
+def get_page_by_id(page_id: int) -> Optional[dict]:
+    for url, page in fake_data.pages.items():
+        if page.get('id') == page_id:
+            return page
+
+    return None
