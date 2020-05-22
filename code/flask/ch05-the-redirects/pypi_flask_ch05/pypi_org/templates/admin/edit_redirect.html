@@ -6,7 +6,7 @@
         <div class="admin-block">
             <a class="btn btn-info btn-sm"
                href="/admin/redirects">&#171; Back to redirects</a>
-            <h1>Add redirect</h1>
+            <h1>{{ "Edit" if redirect_id else "Add" }} redirect</h1>
             <form action="" method="POST">
 
                 <input type="text" class="form-control"
@@ -30,8 +30,6 @@
                        value="{{ url }}"
                        required>
 
-                <input type="hidden" name="id" id="id" value="{{ id }}">
-
                 {% if error %}
                     <div class="error-msg">
                         {{ error }}
@@ -39,7 +37,7 @@
                 {% endif %}
 
                 <button type="submit" class="btn btn-danger">
-                    Add Redirect
+                    {{ "Edit" if redirect_id else "Add" }} redirect
                 </button>
 
 
