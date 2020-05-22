@@ -40,6 +40,6 @@ def add_redirect_get():
 @blueprint.route('/admin/add_redirect', methods=['POST'])
 @response(template_file='admin/edit_redirect.html')
 def add_redirect_post():
-    # TODO: NEEDS WORKS
+    # TODO: NEEDS WORK
     vm = EditRedirectViewModel()
     return vm.to_dict()
