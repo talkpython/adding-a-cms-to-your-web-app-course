@@ -42,4 +42,5 @@ def add_redirect_get():
 def add_redirect_post():
     # TODO: NEEDS WORK
     vm = EditRedirectViewModel()
+    print(f"Got data: {vm.request_dict}")
     return vm.to_dict()
