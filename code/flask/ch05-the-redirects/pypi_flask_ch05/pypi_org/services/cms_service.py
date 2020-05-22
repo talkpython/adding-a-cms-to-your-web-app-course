@@ -60,3 +60,18 @@ def create_redirect(name: str, short_url: str, url: str):
     }
 
     fake_data.redirects[short_url] = data
+
+
+def update_redirect(redirect_id, name, short_url, url):
+    redirect = get_redirect_by_id(redirect_id)
+
+    if not redirect:
+        raise Exception("Cannot update redirect, does not exist!")
+
+    del fake_data.redirects[redirect.get('short_url')]
+
+    redirect['short_url'] = short_url
+    redirect['url'] = url
+    redirect['name'] = name
+
+    fake_data.redirects[short_url] = redirect

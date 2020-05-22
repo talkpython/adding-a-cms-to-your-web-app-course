@@ -42,10 +42,40 @@ def add_redirect_get():
 @response(template_file='admin/edit_redirect.html')
 def add_redirect_post():
     vm = EditRedirectViewModel()
+    vm.process_form()
 
     if not vm.validate():
         return vm.to_dict()
 
     cms_service.create_redirect(vm.name, vm.short_url, vm.url)
+
+    return flask.redirect('/admin/redirects')
+
+
+# EDIT_REDIRECT VIEWS ####################################
+#
+#
+@permissions.admin
+@blueprint.route('/admin/edit_redirect/<int:redirect_id>', methods=['GET'])
+@response(template_file='admin/edit_redirect.html')
+def edit_redirect_get(redirect_id: int):
+    vm = EditRedirectViewModel(redirect_id)
+    if not vm.redirect:
+        return flask.abort(404)
+
+    return vm.to_dict()
+
+
+@permissions.admin
+@blueprint.route('/admin/edit_redirect/<int:redirect_id>', methods=['POST'])
+@response(template_file='admin/edit_redirect.html')
+def edit_redirect_post(redirect_id: int):
+    vm = EditRedirectViewModel(redirect_id)
+    vm.process_form()
+
+    if not vm.validate():
+        return vm.to_dict()
+
+    cms_service.update_redirect(vm.redirect_id, vm.name, vm.short_url, vm.url)
 
     return flask.redirect('/admin/redirects')
