@@ -1,3 +1,4 @@
+import random
 from typing import Optional, Dict, List
 
 from pypi_org.db import fake_data
@@ -45,3 +46,17 @@ def get_page_by_id(page_id: int) -> Optional[dict]:
             return page
 
     return None
+
+
+def create_redirect(name: str, short_url: str, url: str):
+    if get_redirect(short_url):
+        raise Exception("Cannot create redirect, exists!")
+
+    data = {
+        'id': random.randint(100, 1000000),
+        'url': url,
+        'short_url': short_url,
+        'name': name,
+    }
+
+    fake_data.redirects[short_url] = data

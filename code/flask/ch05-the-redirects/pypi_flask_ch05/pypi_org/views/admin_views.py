@@ -2,6 +2,7 @@ import flask
 
 from pypi_org.infrastructure import permissions
 from pypi_org.infrastructure.view_modifiers import response
+from pypi_org.services import cms_service
 from pypi_org.viewmodels.admin.editredirect_viewmodel import EditRedirectViewModel
 from pypi_org.viewmodels.admin.redirectlist_viewmodel import RedirectListViewModel
 from pypi_org.viewmodels.shared.viewmodelbase import ViewModelBase
@@ -45,5 +46,6 @@ def add_redirect_post():
     if not vm.validate():
         return vm.to_dict()
 
-    print(f"WOULD HAVE CREATED: {vm.short_url} -> {vm.url}")
+    cms_service.create_redirect(vm.name, vm.short_url, vm.url)
+
     return flask.redirect('/admin/redirects')
