@@ -4,6 +4,7 @@ from pypi_org.infrastructure import permissions
 from pypi_org.infrastructure.view_modifiers import response
 from pypi_org.services import cms_service
 from pypi_org.viewmodels.admin.editredirect_viewmodel import EditRedirectViewModel
+from pypi_org.viewmodels.admin.pageslist_viewmodel import PagesListViewModel
 from pypi_org.viewmodels.admin.redirectlist_viewmodel import RedirectListViewModel
 from pypi_org.viewmodels.shared.viewmodelbase import ViewModelBase
 
@@ -23,6 +24,14 @@ def index():
 @response(template_file='admin/redirects.html')
 def redirects():
     vm = RedirectListViewModel()
+    return vm.to_dict()
+
+
+@blueprint.route('/admin/pages')
+@permissions.admin
+@response(template_file='admin/pages.html')
+def pages():
+    vm = PagesListViewModel()
     return vm.to_dict()
 
 
