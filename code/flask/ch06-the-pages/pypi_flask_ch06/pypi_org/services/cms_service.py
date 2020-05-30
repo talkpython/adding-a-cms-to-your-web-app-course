@@ -75,3 +75,17 @@ def update_redirect(redirect_id, name, short_url, url):
     redirect['name'] = name
 
     fake_data.redirects[short_url] = redirect
+
+
+def create_page(title, url, contents):
+    if get_page(url):
+        raise Exception("Cannot create page, exists!")
+
+    data = {
+        'id': random.randint(100, 1000000),
+        'url': url,
+        'title': title,
+        'contents': contents,
+    }
+
+    fake_data.pages[url] = data

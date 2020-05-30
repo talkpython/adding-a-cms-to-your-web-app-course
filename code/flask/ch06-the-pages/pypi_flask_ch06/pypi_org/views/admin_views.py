@@ -3,6 +3,7 @@ import flask
 from pypi_org.infrastructure import permissions
 from pypi_org.infrastructure.view_modifiers import response
 from pypi_org.services import cms_service
+from pypi_org.viewmodels.admin.editpage_viewmodel import EditPageViewModel
 from pypi_org.viewmodels.admin.editredirect_viewmodel import EditRedirectViewModel
 from pypi_org.viewmodels.admin.pageslist_viewmodel import PagesListViewModel
 from pypi_org.viewmodels.admin.redirectlist_viewmodel import RedirectListViewModel
@@ -88,3 +89,33 @@ def edit_redirect_post(redirect_id: int):
     cms_service.update_redirect(vm.redirect_id, vm.name, vm.short_url, vm.url)
 
     return flask.redirect('/admin/redirects')
+
+
+
+
+# ADD_PAGE VIEWS ####################################
+#
+#
+@blueprint.route('/admin/add_page', methods=['GET'])
+@permissions.admin
+@response(template_file='admin/edit_page.html')
+def add_page_get():
+    vm = EditPageViewModel()
+    return vm.to_dict()
+
+
+@blueprint.route('/admin/add_page', methods=['POST'])
+@permissions.admin
+@response(template_file='admin/edit_page.html')
+def add_page_post():
+    vm = EditPageViewModel()
+    vm.process_form()
+
+    if not vm.validate():
+        return vm.to_dict()
+
+    cms_service.create_page(vm.title, vm.url, vm.contents)
+
+    return flask.redirect('/admin/pages')
+
+
