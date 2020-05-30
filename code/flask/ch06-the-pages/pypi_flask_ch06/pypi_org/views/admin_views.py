@@ -115,3 +115,29 @@ def add_page_post():
     cms_service.create_page(vm.title, vm.url, vm.contents)
 
     return flask.redirect('/admin/pages')
+
+
+# EDIT_PAGE VIEWS ####################################
+#
+#
+@blueprint.route('/admin/edit_page/<int:page_id>', methods=['GET'])
+@permissions.admin
+@response(template_file='admin/edit_page.html')
+def edit_page_get(page_id):
+    vm = EditPageViewModel(page_id)
+    return vm.to_dict()
+
+
+@blueprint.route('/admin/edit_page/<int:page_id>', methods=['POST'])
+@permissions.admin
+@response(template_file='admin/edit_page.html')
+def edit_page_post(page_id: int):
+    vm = EditPageViewModel(page_id)
+    vm.process_form()
+
+    if not vm.validate():
+        return vm.to_dict()
+
+    cms_service.update_page(vm.page_id, vm.title, vm.url, vm.contents)
+
+    return flask.redirect('/admin/pages')

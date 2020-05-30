@@ -89,3 +89,18 @@ def create_page(title, url, contents):
     }
 
     fake_data.pages[url] = data
+
+
+def update_page(page_id: int, title: str, url: str, contents: str):
+    page = get_page_by_id(page_id)
+
+    if not page:
+        raise Exception("Cannot update page, does not exist!")
+
+    del fake_data.pages[page.get('url')]
+
+    page['title'] = title.strip()
+    page['url'] = url.strip().lower()
+    page['contents'] = contents.strip()
+
+    fake_data.pages[url] = page
