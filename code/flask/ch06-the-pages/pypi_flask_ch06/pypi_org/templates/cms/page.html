@@ -1,0 +1,16 @@
+{% extends "shared/_layout.html" %}
+{% block title %}PyPI: {{ page.title }}{% endblock %}
+
+{% block main_content %}
+    <div class="padded">
+        <h1>{{ page.title }}</h1>
+
+        <div>
+            {{ html }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_css %}
+    <!-- this would be css from about.html -->
+{% endblock %}
