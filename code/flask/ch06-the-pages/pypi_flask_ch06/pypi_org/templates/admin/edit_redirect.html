@@ -1,0 +1,51 @@
+{% extends "shared/_layout.html" %}
+{% block title %}PyPI Demo CMS Admin{% endblock %}
+
+{% block main_content %}
+    <div class="padded">
+        <div class="admin-block">
+            <a class="btn btn-info btn-sm"
+               href="/admin/redirects">&#171; Back to redirects</a>
+            <h1>{{ "Edit" if redirect_id else "Add" }} redirect</h1>
+            <form action="" method="POST">
+
+                <input type="text" class="form-control"
+                       id="name" name="name"
+                       placeholder="The name of the redirect"
+                       title="The name of the redirect"
+                       value="{{ name }}"
+                       required>
+
+                <input type="text" class="form-control"
+                       id="short_url" name="short_url"
+                       placeholder="The short URL on our site: fakepypi.org/{SHORT_URL}"
+                       title="The short URL on our site."
+                       value="{{ short_url }}"
+                       required>
+
+                <input type="text" class="form-control"
+                       id="url" name="url"
+                       placeholder="The destination URL."
+                       title="The destination URL."
+                       value="{{ url }}"
+                       required>
+
+                {% if error %}
+                    <div class="error-msg">
+                        {{ error }}
+                    </div>
+                {% endif %}
+
+                <button type="submit" class="btn btn-danger">
+                    {{ "Edit" if redirect_id else "Add" }} redirect
+                </button>
+
+
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_css %}
+    <link rel="stylesheet" href="/static/css/admin.css">
+{% endblock %}
