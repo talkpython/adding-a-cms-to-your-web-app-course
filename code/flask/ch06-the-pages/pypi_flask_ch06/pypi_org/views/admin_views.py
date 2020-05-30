@@ -91,8 +91,6 @@ def edit_redirect_post(redirect_id: int):
     return flask.redirect('/admin/redirects')
 
 
-
-
 # ADD_PAGE VIEWS ####################################
 #
 #
@@ -117,5 +115,3 @@ def add_page_post():
     cms_service.create_page(vm.title, vm.url, vm.contents)
 
     return flask.redirect('/admin/pages')
-
-
