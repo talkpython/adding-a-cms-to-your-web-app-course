@@ -10,16 +10,16 @@ from pypi_org.viewmodels.shared.viewmodelbase import ViewModelBase
 blueprint = flask.Blueprint('admin', __name__, template_folder='templates')
 
 
-@permissions.admin
 @blueprint.route('/admin')
+@permissions.admin
 @response(template_file='admin/index.html')
 def index():
     vm = ViewModelBase()
     return vm.to_dict()
 
 
-@permissions.admin
 @blueprint.route('/admin/redirects')
+@permissions.admin
 @response(template_file='admin/redirects.html')
 def redirects():
     vm = RedirectListViewModel()
@@ -29,16 +29,16 @@ def redirects():
 # ADD_REDIRECT VIEWS ####################################
 #
 #
-@permissions.admin
 @blueprint.route('/admin/add_redirect', methods=['GET'])
+@permissions.admin
 @response(template_file='admin/edit_redirect.html')
 def add_redirect_get():
     vm = EditRedirectViewModel()
     return vm.to_dict()
 
 
-@permissions.admin
 @blueprint.route('/admin/add_redirect', methods=['POST'])
+@permissions.admin
 @response(template_file='admin/edit_redirect.html')
 def add_redirect_post():
     vm = EditRedirectViewModel()
@@ -55,8 +55,8 @@ def add_redirect_post():
 # EDIT_REDIRECT VIEWS ####################################
 #
 #
-@permissions.admin
 @blueprint.route('/admin/edit_redirect/<int:redirect_id>', methods=['GET'])
+@permissions.admin
 @response(template_file='admin/edit_redirect.html')
 def edit_redirect_get(redirect_id: int):
     vm = EditRedirectViewModel(redirect_id)
@@ -66,8 +66,8 @@ def edit_redirect_get(redirect_id: int):
     return vm.to_dict()
 
 
-@permissions.admin
 @blueprint.route('/admin/edit_redirect/<int:redirect_id>', methods=['POST'])
+@permissions.admin
 @response(template_file='admin/edit_redirect.html')
 def edit_redirect_post(redirect_id: int):
     vm = EditRedirectViewModel(redirect_id)
