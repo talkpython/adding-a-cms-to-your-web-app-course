@@ -18,6 +18,8 @@ import pypi_org.data.package
 # noinspection PyUnresolvedReferences
 import pypi_org.data.pages
 # noinspection PyUnresolvedReferences
+import pypi_org.data.redirects
+# noinspection PyUnresolvedReferences
 import pypi_org.data.releases
 # noinspection PyUnresolvedReferences
 import pypi_org.data.users

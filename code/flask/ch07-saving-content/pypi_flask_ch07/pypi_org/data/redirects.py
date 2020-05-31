@@ -5,8 +5,8 @@ import sqlalchemy
 from pypi_org.data.modelbase import SqlAlchemyBase
 
 
-class Page(SqlAlchemyBase):
-    __tablename__ = 'pages'
+class Redirect(SqlAlchemyBase):
+    __tablename__ = 'redirects'
 
     id: int = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
 
@@ -15,6 +15,6 @@ class Page(SqlAlchemyBase):
     creating_user: str = sqlalchemy.Column(sqlalchemy.String, nullable=False)
 
     # direct data
-    title: str = sqlalchemy.Column(sqlalchemy.String, nullable=False)
-    url: str = sqlalchemy.Column(sqlalchemy.String, nullable=False, unique=True, index=True)
-    contents: str = sqlalchemy.Column(sqlalchemy.String)
+    short_url: str = sqlalchemy.Column(sqlalchemy.String, nullable=False, unique=True, index=True)
+    url: str = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+    name: str = sqlalchemy.Column(sqlalchemy.String, nullable=False)
