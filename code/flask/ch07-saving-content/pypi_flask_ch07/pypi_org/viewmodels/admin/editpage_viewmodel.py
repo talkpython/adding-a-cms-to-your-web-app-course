@@ -16,9 +16,9 @@ class EditPageViewModel(ViewModelBase):
             self.page = cms_service.get_page_by_id(self.page_id)
 
         if self.page:
-            self.title = self.page.get('title')
-            self.url = self.page.get('url')
-            self.contents = self.page.get('contents')
+            self.title = self.page.title
+            self.url = self.page.url
+            self.contents = self.page.contents
 
     def process_form(self):
         d = self.request_dict

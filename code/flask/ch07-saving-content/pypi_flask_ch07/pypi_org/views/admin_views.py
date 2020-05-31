@@ -112,7 +112,7 @@ def add_page_post():
     if not vm.validate():
         return vm.to_dict()
 
-    cms_service.create_page(vm.title, vm.url, vm.contents)
+    cms_service.create_page(vm.title, vm.url, vm.contents, vm.user.email)
 
     return flask.redirect('/admin/pages')
 
