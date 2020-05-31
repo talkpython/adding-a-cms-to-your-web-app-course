@@ -76,19 +76,21 @@ def create_redirect(name: str, short_url: str, url: str, user_email: str) -> Red
         session.close()
 
 
-def update_redirect(redirect_id, name, short_url, url):
-    redirect = get_redirect_by_id(redirect_id)
-
-    if not redirect:
+def update_redirect(redirect_id, name, short_url, url) -> Redirect:
+    if not get_redirect_by_id(redirect_id):
         raise Exception("Cannot update redirect, does not exist!")
 
-    del fake_data.redirects[redirect.get('short_url')]
+    session = db_session.create_session()
+    try:
+        redirect = session.query(Redirect).filter(Redirect.id == redirect_id).first()
+        redirect.name = name
+        redirect.short_url = short_url
+        redirect.url = url
 
-    redirect['short_url'] = short_url
-    redirect['url'] = url
-    redirect['name'] = name
-
-    fake_data.redirects[short_url] = redirect
+        session.commit()
+        return redirect
+    finally:
+        session.close()
 
 
 def create_page(title, url, contents):

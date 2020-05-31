@@ -21,9 +21,9 @@ class EditRedirectViewModel(ViewModelBase):
             self.redirect = cms_service.get_redirect_by_id(self.redirect_id)
 
         if self.redirect:
-            self.name = self.redirect.get('name')
-            self.url = self.redirect.get('url')
-            self.short_url = self.redirect.get('short_url')
+            self.name = self.redirect.name
+            self.url = self.redirect.url
+            self.short_url = self.redirect.short_url
 
     def process_form(self):
         d = self.request_dict

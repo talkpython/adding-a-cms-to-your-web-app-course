@@ -17,7 +17,7 @@ class RequestViewModel(ViewModelBase):
         self.redirect = cms_service.get_redirect(self.url)
         self.redirect_url = None
         if self.redirect:
-            dest = self.redirect.get('url')
+            dest = self.redirect.url
             query = flask.request.query_string
             if query:
                 query = query.decode('utf-8')
