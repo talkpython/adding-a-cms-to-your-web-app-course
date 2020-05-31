@@ -57,7 +57,7 @@ def add_redirect_post():
     if not vm.validate():
         return vm.to_dict()
 
-    cms_service.create_redirect(vm.name, vm.short_url, vm.url)
+    cms_service.create_redirect(vm.name, vm.short_url, vm.url, vm.user.email)
 
     return flask.redirect('/admin/redirects')
 

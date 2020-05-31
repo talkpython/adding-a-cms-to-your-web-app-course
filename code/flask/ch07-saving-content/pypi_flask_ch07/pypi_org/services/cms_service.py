@@ -1,6 +1,8 @@
 import random
 from typing import Optional, Dict, List
 
+from pypi_org.data import db_session
+from pypi_org.data.redirects import Redirect
 from pypi_org.db import fake_data
 
 
@@ -14,30 +16,37 @@ def get_page(base_url: str) -> Optional[Dict]:
     return page
 
 
-def get_redirect(base_url: str) -> Optional[Dict]:
+def get_redirect(base_url: str) -> Optional[Redirect]:
     if not base_url or not base_url.strip():
         return None
 
     base_url = base_url.strip().lower()
 
-    redirect = fake_data.redirects.get(base_url)
-    return redirect
+    session = db_session.create_session()
+    try:
+        return session.query(Redirect).filter(Redirect.short_url == base_url).first()
+    finally:
+        session.close()
 
 
 def all_pages() -> List[Dict]:
     return list(fake_data.pages.values())
 
 
-def all_redirects() -> List[Dict]:
-    return list(fake_data.redirects.values())
+def all_redirects() -> List[Redirect]:
+    session = db_session.create_session()
+    try:
+        return session.query(Redirect).order_by(Redirect.created_date.desc()).all()
+    finally:
+        session.close()
 
 
-def get_redirect_by_id(redirect_id: int) -> Optional[dict]:
-    for url, redirect in fake_data.redirects.items():
-        if redirect.get('id') == redirect_id:
-            return redirect
-
-    return None
+def get_redirect_by_id(redirect_id: int) -> Optional[Redirect]:
+    session = db_session.create_session()
+    try:
+        return session.query(Redirect).filter(Redirect.id == redirect_id).first()
+    finally:
+        session.close()
 
 
 def get_page_by_id(page_id: int) -> Optional[dict]:
@@ -48,18 +57,23 @@ def get_page_by_id(page_id: int) -> Optional[dict]:
     return None
 
 
-def create_redirect(name: str, short_url: str, url: str):
+def create_redirect(name: str, short_url: str, url: str, user_email: str) -> Redirect:
     if get_redirect(short_url):
         raise Exception("Cannot create redirect, exists!")
 
-    data = {
-        'id': random.randint(100, 1000000),
-        'url': url,
-        'short_url': short_url,
-        'name': name,
-    }
+    redirect = Redirect()
+    redirect.url = url.strip()
+    redirect.short_url = short_url.strip().lower()
+    redirect.name = name.strip()
+    redirect.creating_user = user_email
 
-    fake_data.redirects[short_url] = data
+    session = db_session.create_session()
+    try:
+        session.add(redirect)
+        session.commit()
+        return redirect
+    finally:
+        session.close()
 
 
 def update_redirect(redirect_id, name, short_url, url):
