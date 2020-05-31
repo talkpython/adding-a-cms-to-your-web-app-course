@@ -1,19 +1,21 @@
-import random
-from typing import Optional, Dict, List
+from typing import Optional, List
 
 from pypi_org.data import db_session
+from pypi_org.data.pages import Page
 from pypi_org.data.redirects import Redirect
-from pypi_org.db import fake_data
 
 
-def get_page(base_url: str) -> Optional[Dict]:
+def get_page(base_url: str) -> Optional[Page]:
     if not base_url or not base_url.strip():
         return None
 
     base_url = base_url.strip().lower()
 
-    page = fake_data.pages.get(base_url)
-    return page
+    session = db_session.create_session()
+    try:
+        return session.query(Page).filter(Page.url == base_url).first()
+    finally:
+        session.close()
 
 
 def get_redirect(base_url: str) -> Optional[Redirect]:
@@ -29,8 +31,12 @@ def get_redirect(base_url: str) -> Optional[Redirect]:
         session.close()
 
 
-def all_pages() -> List[Dict]:
-    return list(fake_data.pages.values())
+def all_pages() -> List[Page]:
+    session = db_session.create_session()
+    try:
+        return session.query(Page).order_by(Page.created_date.desc()).all()
+    finally:
+        session.close()
 
 
 def all_redirects() -> List[Redirect]:
@@ -49,12 +55,12 @@ def get_redirect_by_id(redirect_id: int) -> Optional[Redirect]:
         session.close()
 
 
-def get_page_by_id(page_id: int) -> Optional[dict]:
-    for url, page in fake_data.pages.items():
-        if page.get('id') == page_id:
-            return page
-
-    return None
+def get_page_by_id(page_id: int) -> Optional[Page]:
+    session = db_session.create_session()
+    try:
+        return session.query(Page).filter(Page.id == page_id).first()
+    finally:
+        session.close()
 
 
 def create_redirect(name: str, short_url: str, url: str, user_email: str) -> Redirect:
@@ -93,30 +99,41 @@ def update_redirect(redirect_id, name, short_url, url) -> Redirect:
         session.close()
 
 
-def create_page(title, url, contents):
+def create_page(title: str, url: str, contents: str, creating_user: str) -> Page:
     if get_page(url):
         raise Exception("Cannot create page, exists!")
 
-    data = {
-        'id': random.randint(100, 1000000),
-        'url': url,
-        'title': title,
-        'contents': contents,
-    }
+    session = db_session.create_session()
+    try:
+        page = Page()
+        page.title = title.strip()
+        page.contents = contents.strip()
+        page.url = url.strip().lower()
+        page.creating_user = creating_user
 
-    fake_data.pages[url] = data
+        session.add(page)
+        session.commit()
+
+        return page
+
+    finally:
+        session.close()
 
 
-def update_page(page_id: int, title: str, url: str, contents: str):
-    page = get_page_by_id(page_id)
+def update_page(page_id: int, title: str, url: str, contents: str) -> Page:
+    session = db_session.create_session()
+    try:
+        page = session.query(Page).filter(Page.id == page_id).first()
+        if not page:
+            raise Exception("Cannot update page, does not exist!")
 
-    if not page:
-        raise Exception("Cannot update page, does not exist!")
+        page.title = title.strip()
+        page.contents = contents.strip()
+        page.url = url.strip().lower()
 
-    del fake_data.pages[page.get('url')]
+        session.commit()
 
-    page['title'] = title.strip()
-    page['url'] = url.strip().lower()
-    page['contents'] = contents.strip()
+        return page
 
-    fake_data.pages[url] = page
+    finally:
+        session.close()
