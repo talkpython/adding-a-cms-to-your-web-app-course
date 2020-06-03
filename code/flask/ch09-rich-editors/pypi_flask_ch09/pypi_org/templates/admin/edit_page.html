@@ -45,4 +45,16 @@
 
 {% block additional_css %}
     <link rel="stylesheet" href="/static/css/admin.css">
+    <link rel="stylesheet" href="/static/node_modules/simplemde/dist/simplemde.min.css">
+{% endblock %}
+
+{% block additional_js %}
+    <script src="/static/node_modules/simplemde/dist/simplemde.min.js"></script>
+    <!--suppress JSUnresolvedFunction -->
+    <script>
+        let editor = new SimpleMDE({
+            element: document.getElementById("contents"),
+            spellChecker: false
+        });
+    </script>
 {% endblock %}
