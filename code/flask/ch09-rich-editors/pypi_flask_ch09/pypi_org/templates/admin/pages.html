@@ -1,0 +1,32 @@
+{% extends "shared/_layout.html" %}
+{% block title %}PyPI Demo CMS Pages{% endblock %}
+
+{% block main_content %}
+    <div class="padded">
+        <h1>Pages</h1>
+        <a class="btn btn-info btn-sm"
+           href="/admin">&#171; Back to admin home</a>
+
+        <div class="admin-block">
+            <ul>
+                <li>
+                    <a href="/admin/add_page">Add new page</a>
+                </li>
+
+                {% for p in pages %}
+                    <li>
+                        <a target="_blank"
+                           href="/{{ p.url }}" class="btn btn-sm btn-success">view</a>
+                        <a href="/admin/edit_page/{{ p.id }}" class="btn btn-sm btn-danger">edit</a>
+                        <span class="link">{{ p.title }}</span>
+                    </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_css %}
+    <link rel="stylesheet" href="/static/css/admin.css">
+{% endblock %}
