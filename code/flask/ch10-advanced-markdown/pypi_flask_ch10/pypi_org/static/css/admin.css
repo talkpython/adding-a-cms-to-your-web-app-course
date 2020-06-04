@@ -1,0 +1,38 @@
+form input.form-control {
+    display: block;
+}
+
+.admin-block {
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    max-width: 600px;
+}
+
+form > * {
+    margin-bottom: 10px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.admin-block li {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.admin-block form > textarea,
+.admin-block form > input {
+    padding: 15px;
+    width: 100%;
+}
+
+.shared_page {
+    color: darkgreen;
+}
+
+.link {
+    font-weight: bold;
+}
