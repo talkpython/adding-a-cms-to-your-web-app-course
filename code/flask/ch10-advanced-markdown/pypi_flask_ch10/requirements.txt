@@ -1,6 +1,7 @@
 flask
 logbook
 markdown2
+markdown-subtemplate
 progressbar2
 python-dateutil
 passlib
