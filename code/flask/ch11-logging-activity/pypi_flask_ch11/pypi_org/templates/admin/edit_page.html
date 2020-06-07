@@ -1,0 +1,66 @@
+{% extends "shared/_layout.html" %}
+{% block title %}PyPI Demo CMS Admin{% endblock %}
+
+{% block main_content %}
+    <div class="padded">
+        <div class="admin-block">
+            <a class="btn btn-info btn-sm"
+               href="/admin/pages">&#171; Back to pages</a>
+            <h1>{{ "Edit" if page_id else "Add" }} page</h1>
+            <form action="" method="POST">
+
+                <input type="text" class="form-control"
+                       id="title" name="title"
+                       placeholder="The title of the page"
+                       title="The title of the page"
+                       value="{{ title }}"
+                       required>
+
+                <input type="text" class="form-control"
+                       id="url" name="url"
+                       placeholder="The URL on our site: fakepypi.org/{URL}"
+                       title="The URL on our site."
+                       value="{{ url }}"
+                       required>
+
+                <div>
+                    <input type="checkbox" id="is_shared"
+                    {% if is_shared %}checked{% endif %} name="is_shared">
+                    <label for="is_shared">Shared (none public content)?</label>
+                </div>
+
+                <textarea name="contents" id="contents" cols="50" rows="15"
+                          placeholder="Contents (HTML) of your page."
+                >{{ contents }}</textarea>
+
+                {% if error %}
+                    <div class="error-msg">
+                        {{ error }}
+                    </div>
+                {% endif %}
+
+                <button type="submit" class="btn btn-danger">
+                    {{ "Edit" if page_id else "Add" }} page
+                </button>
+
+
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_css %}
+    <link rel="stylesheet" href="/static/css/admin.css">
+    <link rel="stylesheet" href="/static/node_modules/simplemde/dist/simplemde.min.css">
+{% endblock %}
+
+{% block additional_js %}
+    <script src="/static/node_modules/simplemde/dist/simplemde.min.js"></script>
+    <!--suppress JSUnresolvedFunction -->
+    <script>
+        let editor = new SimpleMDE({
+            element: document.getElementById("contents"),
+            spellChecker: false
+        });
+    </script>
+{% endblock %}
