@@ -20,7 +20,7 @@ def main():
     debug = True
     port = 5006
     log.notice(f"Starting app: localhost:{port}, debug: {debug}")
-    app.run(debug=debug, port=port)
+    app.run(debug=debug, host="localhost", port=port)
 
 
 def configure():
