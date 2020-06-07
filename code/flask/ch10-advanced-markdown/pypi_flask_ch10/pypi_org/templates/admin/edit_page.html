@@ -23,6 +23,12 @@
                        value="{{ url }}"
                        required>
 
+                <div>
+                    <input type="checkbox" id="is_shared"
+                    {% if is_shared %}checked{% endif %} name="is_shared">
+                    <label for="is_shared">Shared (none public content)?</label>
+                </div>
+
                 <textarea name="contents" id="contents" cols="50" rows="15"
                           placeholder="Contents (HTML) of your page."
                 >{{ contents }}</textarea>

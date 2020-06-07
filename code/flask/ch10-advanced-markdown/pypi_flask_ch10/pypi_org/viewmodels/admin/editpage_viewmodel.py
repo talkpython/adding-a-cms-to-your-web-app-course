@@ -8,6 +8,7 @@ class EditPageViewModel(ViewModelBase):
 
         self.page_id = page_id
         self.page = None
+        self.is_shared = False
         self.title = ''
         self.url = ''
         self.contents = ''
@@ -19,12 +20,14 @@ class EditPageViewModel(ViewModelBase):
             self.title = self.page.title
             self.url = self.page.url
             self.contents = self.page.contents
+            self.is_shared = self.page.is_shared
 
     def process_form(self):
         d = self.request_dict
         self.title = d.get('title', '').strip()
         self.url = d.get('url', '').strip().lower()
         self.contents = d.get('contents', '').strip()
+        self.is_shared = d.get('is_shared', '') == 'on'
 
     def validate(self) -> bool:
         if not self.title or not self.title.strip():
