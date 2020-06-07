@@ -99,7 +99,7 @@ def update_redirect(redirect_id, name, short_url, url) -> Redirect:
         session.close()
 
 
-def create_page(title: str, url: str, contents: str, creating_user: str) -> Page:
+def create_page(title: str, url: str, contents: str, creating_user: str, is_shared: bool) -> Page:
     if get_page(url):
         raise Exception("Cannot create page, exists!")
 
@@ -110,6 +110,7 @@ def create_page(title: str, url: str, contents: str, creating_user: str) -> Page
         page.contents = contents.strip()
         page.url = url.strip().lower()
         page.creating_user = creating_user
+        page.is_shared = is_shared
 
         session.add(page)
         session.commit()
@@ -120,7 +121,7 @@ def create_page(title: str, url: str, contents: str, creating_user: str) -> Page
         session.close()
 
 
-def update_page(page_id: int, title: str, url: str, contents: str) -> Page:
+def update_page(page_id: int, title: str, url: str, contents: str, is_shared: bool) -> Page:
     session = db_session.create_session()
     try:
         page = session.query(Page).filter(Page.id == page_id).first()
@@ -130,6 +131,7 @@ def update_page(page_id: int, title: str, url: str, contents: str) -> Page:
         page.title = title.strip()
         page.contents = contents.strip()
         page.url = url.strip().lower()
+        page.is_shared = is_shared
 
         session.commit()
 

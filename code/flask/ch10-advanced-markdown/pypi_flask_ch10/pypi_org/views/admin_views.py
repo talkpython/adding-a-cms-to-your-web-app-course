@@ -112,7 +112,7 @@ def add_page_post():
     if not vm.validate():
         return vm.to_dict()
 
-    cms_service.create_page(vm.title, vm.url, vm.contents, vm.user.email)
+    cms_service.create_page(vm.title, vm.url, vm.contents, vm.user.email, vm.is_shared)
 
     return flask.redirect('/admin/pages')
 
@@ -138,6 +138,6 @@ def edit_page_post(page_id: int):
     if not vm.validate():
         return vm.to_dict()
 
-    cms_service.update_page(vm.page_id, vm.title, vm.url, vm.contents)
+    cms_service.update_page(vm.page_id, vm.title, vm.url, vm.contents, vm.is_shared)
 
     return flask.redirect('/admin/pages')
