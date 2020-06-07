@@ -26,8 +26,6 @@
             <ul>
                 {% for s in shared %}
                     <li class="shared_page">
-                        <a target="_blank"
-                           href="/{{ s.url }}" class="btn btn-sm btn-success">view</a>
                         <a href="/admin/edit_page/{{ s.id }}" class="btn btn-sm btn-danger">edit</a>
                         <span class="link">{{ s.url }}</span>
                         <span>{{ s.title }}</span>

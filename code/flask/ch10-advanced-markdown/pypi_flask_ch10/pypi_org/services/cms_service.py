@@ -5,7 +5,7 @@ from pypi_org.data.pages import Page
 from pypi_org.data.redirects import Redirect
 
 
-def get_page(base_url: str) -> Optional[Page]:
+def get_page(base_url: str, is_shared: bool = False) -> Optional[Page]:
     if not base_url or not base_url.strip():
         return None
 
@@ -13,7 +13,15 @@ def get_page(base_url: str) -> Optional[Page]:
 
     session = db_session.create_session()
     try:
-        return session.query(Page).filter(Page.url == base_url).first()
+        page = session.query(Page).filter(Page.url == base_url).first()
+
+        if page and page.is_shared is None:
+            page.is_shared = False
+
+        if page and page.is_shared != is_shared:
+            return None
+
+        return page
     finally:
         session.close()
 
