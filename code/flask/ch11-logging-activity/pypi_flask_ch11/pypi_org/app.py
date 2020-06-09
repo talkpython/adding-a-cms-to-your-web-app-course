@@ -3,6 +3,7 @@ import sys
 
 from markdown_subtemplate import storage
 
+from pypi_org.infrastructure.log_levels import LogLevel
 from pypi_org.infrastructure.template_storage_engine import TemplateDBStorage
 
 folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -34,7 +35,7 @@ def configure():
 
 
 def init_logging():
-    logbook.StreamHandler(sys.stdout).push_application()
+    logbook.StreamHandler(sys.stdout, level=LogLevel.debug).push_application()
     return logbook.Logger('App')
 
 
