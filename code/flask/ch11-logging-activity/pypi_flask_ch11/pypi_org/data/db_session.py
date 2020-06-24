@@ -10,7 +10,7 @@ from pypi_org.data.modelbase import SqlAlchemyBase
 __factory: Optional[Callable[[], Session]] = None
 is_initialized = False
 
-log = logbook.Logger('db_session')
+log = logbook.Logger('Db')
 
 
 def global_init(db_file: str):

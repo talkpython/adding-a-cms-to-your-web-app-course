@@ -6,12 +6,16 @@ from markdown_subtemplate import storage
 from pypi_org.infrastructure.log_levels import LogLevel
 from pypi_org.infrastructure.template_storage_engine import TemplateDBStorage
 
+# region Additional imports after updating project path.
+
 folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, folder)
 
 import logbook
 import flask
 import pypi_org.data.db_session as db_session
+
+# endregion
 
 app = flask.Flask(__name__)
 
