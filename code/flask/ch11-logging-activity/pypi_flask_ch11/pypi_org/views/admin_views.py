@@ -11,6 +11,7 @@ from pypi_org.viewmodels.admin.redirectlist_viewmodel import RedirectListViewMod
 from pypi_org.viewmodels.shared.viewmodelbase import ViewModelBase
 
 blueprint = flask.Blueprint('admin', __name__, template_folder='templates')
+log = logbook.Logger('cms_admin')
 
 
 @blueprint.route('/admin')
@@ -18,7 +19,7 @@ blueprint = flask.Blueprint('admin', __name__, template_folder='templates')
 @response(template_file='admin/index.html')
 def index():
     vm = ViewModelBase()
-    # TODO: Log: User viewing admin index: email
+    log.info(f"User viewing admin index: {vm.user.email}")
     return vm.to_dict()
 
 
@@ -27,7 +28,7 @@ def index():
 @response(template_file='admin/redirects.html')
 def redirects():
     vm = RedirectListViewModel()
-    # TODO: Log: User viewing redirects: email
+    log.info(f"User viewing redirects: {vm.user.email}")
     return vm.to_dict()
 
 
@@ -36,7 +37,7 @@ def redirects():
 @response(template_file='admin/pages.html')
 def pages():
     vm = PagesListViewModel()
-    # TODO: Log: User viewing pages: email
+    log.info(f"User viewing pages: {vm.user.email}")
     return vm.to_dict()
 
 
@@ -59,11 +60,11 @@ def add_redirect_post():
     vm.process_form()
 
     if not vm.validate():
-        # TODO: Log: User cannot add new redirect, error: email - error
+        log.notice(f"User cannot add new redirect, error: {vm.user.email} - {vm.error}.")
         return vm.to_dict()
 
     cms_service.create_redirect(vm.name, vm.short_url, vm.url, vm.user.email)
-    # TODO: Log: User adding new redirect: email, name --> short_url.
+    log.notice(f"User adding new redirect: {vm.user.email}, {vm.name} --> {vm.short_url}.")
 
     return flask.redirect('/admin/redirects')
 
@@ -90,11 +91,11 @@ def edit_redirect_post(redirect_id: int):
     vm.process_form()
 
     if not vm.validate():
-        # TODO: Log: "User cannot edit redirect, error: email - error
+        log.notice(f"User cannot edit redirect, error: {vm.user.email} - {vm.error}.")
         return vm.to_dict()
 
     cms_service.update_redirect(vm.redirect_id, vm.name, vm.short_url, vm.url)
-    # TODO: Log: User edited redirect: email, name --> short_url.
+    log.notice(f"User edited redirect: {vm.user.email}, {vm.name} --> /{vm.short_url}.")
 
     return flask.redirect('/admin/redirects')
 
