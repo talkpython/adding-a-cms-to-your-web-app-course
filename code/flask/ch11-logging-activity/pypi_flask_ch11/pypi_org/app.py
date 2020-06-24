@@ -1,7 +1,7 @@
 import os
 import sys
 
-from markdown_subtemplate import storage
+from markdown_subtemplate import storage, logging
 
 from pypi_org.infrastructure.log_levels import LogLevel
 from pypi_org.infrastructure.template_storage_engine import TemplateDBStorage
@@ -39,13 +39,17 @@ def configure():
 
 
 def init_logging():
-    logbook.StreamHandler(sys.stdout, level=LogLevel.debug).push_application()
+    logbook.StreamHandler(sys.stdout, level=LogLevel.info).push_application()
     return logbook.Logger('App')
 
 
 def setup_markdown(log: logbook.Logger):
     store = TemplateDBStorage()
     storage.set_storage(store)
+
+    md_log = logging.get_log()
+    md_log.log_level = logging.LogLevel.info
+
     log.notice(f"Set markdown storage engine to: {type(store).__name__}.")
 
 
