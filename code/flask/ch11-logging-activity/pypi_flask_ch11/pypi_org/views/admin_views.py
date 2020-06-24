@@ -119,11 +119,11 @@ def add_page_post():
     vm.process_form()
 
     if not vm.validate():
-        # TODO: Log: User cannot add new page: email, error.
+        log.notice(f"User cannot add new page: {vm.user.email}, {vm.error}.")
         return vm.to_dict()
 
     cms_service.create_page(vm.title, vm.url, vm.contents, vm.user.email, vm.is_shared)
-    # TODO: Log: User adding new page: email, title --> url.
+    log.notice(f"User adding new page: {vm.user.email}, {vm.title} --> {vm.url}.")
 
     return flask.redirect('/admin/pages')
 
@@ -147,10 +147,10 @@ def edit_page_post(page_id: int):
     vm.process_form()
 
     if not vm.validate():
-        # TODO: Log: User cannot edit page: email, error.
+        log.notice(f"User cannot edit page: {vm.user.email}, {vm.error}.")
         return vm.to_dict()
 
     cms_service.update_page(vm.page_id, vm.title, vm.url, vm.contents, vm.is_shared)
-    # TODO: Log: User edit page: email, title --> url.
+    log.notice(f"User editing page: {vm.user.email}, {vm.title} --> {vm.url}.")
 
     return flask.redirect('/admin/pages')
